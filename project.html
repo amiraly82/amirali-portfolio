@@ -171,8 +171,10 @@
           <p class="gallery-section-desc" data-i18n="project_gallery_sub">برای مشاهده با کیفیت اصلی و بزرگ‌نمایی، روی هر تصویر کلیک کنید</p>
         </div>
 
-        <div class="project-visuals-grid" id="project-visuals-grid">
-          <!-- Injected dynamically with all project gallery images -->
+        <div class="gallery-accordion-container" id="gallery-accordion-container">
+          <div class="gallery-accordion-strip" id="project-visuals-grid">
+            <!-- Injected dynamically with gallery modal accordion items -->
+          </div>
         </div>
       </section>
 
@@ -196,19 +198,24 @@
 
   </main>
 
-  <!-- Fullscreen Lightbox Modal -->
+  <!-- Fullscreen Lightbox Modal (Gallery Modal) -->
   <div class="lightbox-modal" id="lightbox-modal" aria-hidden="true">
-    <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">✕</button>
+    <div class="lightbox-top-bar">
+      <div class="lightbox-counter-pill" id="lightbox-counter-pill">1 / 1</div>
+      <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">✕</button>
+    </div>
+
     <button class="lightbox-nav-btn lightbox-nav-prev" id="lightbox-prev-btn" aria-label="Previous Image">‹</button>
     <button class="lightbox-nav-btn lightbox-nav-next" id="lightbox-next-btn" aria-label="Next Image">›</button>
 
-    <div class="lightbox-media-wrapper">
+    <div class="lightbox-media-wrapper" id="lightbox-media-wrapper">
       <img src="" alt="" class="lightbox-img" id="lightbox-img">
     </div>
 
     <div class="lightbox-caption-bar">
       <h4 class="lightbox-caption-title" id="lightbox-title"></h4>
       <p class="lightbox-caption-text" id="lightbox-caption"></p>
+      <div class="lightbox-thumbnails-row" id="lightbox-thumbnails-row"></div>
     </div>
   </div>
 
@@ -326,33 +333,94 @@
           </li>
         `).join('');
 
-        // Full Visual Gallery
-        const galleryGrid = document.getElementById('project-visuals-grid');
-        const zoomText = currentLang === 'fa' ? 'بزرگ‌نمایی 🔍' : 'Zoom 🔍';
+        // Render Gallery Modal Accordion
+        const galleryStrip = document.getElementById('project-visuals-grid');
+        const imagesList = currentProject.images || [];
+        const totalImages = imagesList.length;
 
-        galleryGrid.innerHTML = (currentProject.images || []).map((img, idx) => {
-          const imgTitle = currentLang === 'fa' ? img.titleFa : img.titleEn;
-          const imgCaption = currentLang === 'fa' ? img.captionFa : img.captionEn;
+        if (imagesList.length === 0) {
+          galleryStrip.innerHTML = `<div class="gallery-empty-notice">${currentLang === 'fa' ? 'تصویری برای این پروژه ثبت نشده است.' : 'No gallery images available for this project.'}</div>`;
+        } else {
+          galleryStrip.innerHTML = imagesList.map((img, idx) => {
+            const imgTitle = currentLang === 'fa' ? img.titleFa : img.titleEn;
+            const imgCaption = currentLang === 'fa' ? img.captionFa : img.captionEn;
+            const isActive = idx === 0 ? 'is-active' : '';
+            const paddedNum = String(idx + 1).padStart(2, '0');
+            const visualLabel = currentLang === 'fa' 
+              ? `بخش ${idx + 1} از ${totalImages}`
+              : `Visual ${idx + 1} of ${totalImages}`;
+            const zoomLabel = currentLang === 'fa' ? 'بزرگ‌نمایی و جزئیات 🔍' : 'Inspect Fullscreen 🔍';
 
-          return `
-            <div class="visual-item" data-index="${idx}">
-              <img src="${img.src}" alt="${imgTitle}" class="visual-img" loading="lazy">
-              <div class="visual-zoom-badge">${zoomText}</div>
-              <div class="visual-overlay">
-                <h3 class="visual-overlay-title">${imgTitle}</h3>
-                <p class="visual-overlay-caption">${imgCaption}</p>
+            return `
+              <div class="gallery-accordion-item ${isActive}" data-index="${idx}" tabindex="0" role="button" aria-expanded="${idx === 0 ? 'true' : 'false'}" aria-label="${imgTitle}">
+                <img src="${img.src}" alt="${imgTitle}" class="accordion-img" loading="lazy">
+                
+                <div class="accordion-scrim"></div>
+
+                <div class="accordion-spine-indicator">
+                  <span class="accordion-spine-badge">${paddedNum}</span>
+                  <span class="accordion-spine-label">${imgTitle}</span>
+                </div>
+
+                <div class="accordion-expanded-content">
+                  <div class="accordion-content-header">
+                    <span class="accordion-tag">
+                      <span class="accordion-tag-dot"></span>
+                      ${visualLabel}
+                    </span>
+                    <button class="accordion-zoom-pill" type="button" tabindex="-1">
+                      <span>${zoomLabel}</span>
+                    </button>
+                  </div>
+                  
+                  <h3 class="accordion-item-title">${imgTitle}</h3>
+                  <p class="accordion-item-caption">${imgCaption}</p>
+                </div>
               </div>
-            </div>
-          `;
-        }).join('');
+            `;
+          }).join('');
 
-        // Attach click listeners to gallery images
-        galleryGrid.querySelectorAll('.visual-item').forEach(item => {
-          item.addEventListener('click', () => {
-            const idx = parseInt(item.getAttribute('data-index'), 10);
-            openLightbox(idx);
+          // Accordion Interaction Handlers
+          const accordionItems = galleryStrip.querySelectorAll('.gallery-accordion-item');
+
+          function setActiveAccordionItem(index) {
+            accordionItems.forEach((item, i) => {
+              const active = i === index;
+              item.classList.toggle('is-active', active);
+              item.setAttribute('aria-expanded', active ? 'true' : 'false');
+            });
+          }
+
+          accordionItems.forEach((item, idx) => {
+            // Hover expands panel
+            item.addEventListener('mouseenter', () => {
+              setActiveAccordionItem(idx);
+            });
+
+            // Focus expands panel (keyboard accessibility)
+            item.addEventListener('focus', () => {
+              setActiveAccordionItem(idx);
+            });
+
+            // Click / Tap opens modal lightbox
+            item.addEventListener('click', (e) => {
+              const isMobile = window.innerWidth <= 868;
+              if (isMobile && !item.classList.contains('is-active')) {
+                setActiveAccordionItem(idx);
+                return;
+              }
+              openLightbox(idx);
+            });
+
+            // Keyboard Enter / Space opens modal
+            item.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox(idx);
+              }
+            });
           });
-        });
+        }
 
         // Pagination (Prev & Next Project)
         const totalProjects = PROJECTS_DATA.length;
@@ -389,9 +457,45 @@
         if (!currentProject.images || !currentProject.images[index]) return;
         activeLightboxIndex = index;
         const img = currentProject.images[index];
+        const total = currentProject.images.length;
+
         lightboxImg.src = img.src;
+        lightboxImg.alt = currentLang === 'fa' ? img.titleFa : img.titleEn;
         lightboxTitle.textContent = currentLang === 'fa' ? img.titleFa : img.titleEn;
         lightboxCaption.textContent = currentLang === 'fa' ? img.captionFa : img.captionEn;
+
+        // Update counter pill
+        const counterPill = document.getElementById('lightbox-counter-pill');
+        if (counterPill) {
+          counterPill.textContent = currentLang === 'fa' 
+            ? `${index + 1} از ${total}` 
+            : `${index + 1} / ${total}`;
+        }
+
+        // Render thumbnails row in modal
+        const thumbsRow = document.getElementById('lightbox-thumbnails-row');
+        if (thumbsRow) {
+          thumbsRow.innerHTML = currentProject.images.map((item, i) => `
+            <button class="lightbox-thumb-btn ${i === index ? 'is-active' : ''}" data-thumb-index="${i}" type="button" aria-label="Go to image ${i + 1}">
+              <img src="${item.src}" alt="${currentLang === 'fa' ? item.titleFa : item.titleEn}" class="lightbox-thumb-img">
+            </button>
+          `).join('');
+
+          thumbsRow.querySelectorAll('.lightbox-thumb-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const i = parseInt(btn.getAttribute('data-thumb-index'), 10);
+              openLightbox(i);
+            });
+          });
+        }
+
+        // Keep accordion active item in sync
+        const accordionItems = document.querySelectorAll('.gallery-accordion-item');
+        accordionItems.forEach((item, i) => {
+          item.classList.toggle('is-active', i === index);
+          item.setAttribute('aria-expanded', i === index ? 'true' : 'false');
+        });
 
         lightboxModal.classList.add('is-open');
         lightboxModal.setAttribute('aria-hidden', 'false');
@@ -419,6 +523,13 @@
       lightboxClose.addEventListener('click', closeLightbox);
       lightboxPrev.addEventListener('click', prevLightboxImage);
       lightboxNext.addEventListener('click', nextLightboxImage);
+
+      // Close modal on backdrop click
+      lightboxModal.addEventListener('click', (e) => {
+        if (e.target === lightboxModal || e.target === document.getElementById('lightbox-media-wrapper')) {
+          closeLightbox();
+        }
+      });
 
       const heroCoverImg = document.getElementById('project-hero-cover-img');
       if (heroCoverImg) {

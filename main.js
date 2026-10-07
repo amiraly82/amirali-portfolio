@@ -1529,6 +1529,30 @@ document.addEventListener('DOMContentLoaded', () => {
         ${data.summary}
       </p>
 
+      ${(() => {
+        const projRecord = (typeof PROJECTS_DATA !== 'undefined') ? PROJECTS_DATA.find(p => p.id === projectId) : null;
+        if (!projRecord || !projRecord.images || projRecord.images.length === 0) return '';
+        return `
+          <div style="margin-bottom: 28px;">
+            <div class="gallery-accordion-strip modal-accordion-strip" style="height: 250px; padding: 8px; gap: 8px; border-radius: 18px;">
+              ${projRecord.images.map((img, i) => {
+                const ititle = currentLang === 'fa' ? (img.titleFa || '') : (img.titleEn || '');
+                return `
+                  <div class="gallery-accordion-item ${i === 0 ? 'is-active' : ''}" data-modal-thumb="${i}" style="min-width: 50px; border-radius: 12px; height: 100%;">
+                    <img src="${img.src}" alt="${ititle}" class="accordion-img">
+                    <div class="accordion-scrim"></div>
+                    <div class="accordion-expanded-content" style="padding: 16px;">
+                      <span style="font-size: 0.72rem; color: #fbbf24; font-weight: 700;">#0${i + 1}</span>
+                      <h5 style="color: #fff; font-size: 1rem; font-weight: 700; margin: 4px 0 0; text-shadow: 0 1px 4px rgba(0,0,0,0.8);">${ititle}</h5>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      })()}
+
       <h4 style="font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">${delivHeading}</h4>
       <ul style="list-style: disc; padding-inline-start: 20px; line-height: 1.8; color: var(--color-text-muted); margin-bottom: 30px;">
         ${data.highlights.map(item => `<li>${item}</li>`).join('')}
@@ -1543,6 +1567,18 @@ document.addEventListener('DOMContentLoaded', () => {
         </button>
       </div>
     `;
+
+    // Hook modal accordion items
+    const modalItems = modalBody.querySelectorAll('.modal-accordion-strip .gallery-accordion-item');
+    modalItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        modalItems.forEach(it => it.classList.remove('is-active'));
+        item.classList.add('is-active');
+      });
+      item.addEventListener('click', () => {
+        window.location.href = `project.html?id=${projectId}`;
+      });
+    });
 
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
