@@ -163,6 +163,68 @@
     }
   }
 
+  const REVEAL_LETTER_IMAGES = [
+    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1000&q=80"
+  ];
+
+  function renderRevealText() {
+    const wordContainer = document.getElementById('reveal-text-word');
+    if (!wordContainer) return;
+
+    const lang = document.documentElement.lang || 'fa';
+    const dict = (typeof translations !== 'undefined' && translations[lang]) 
+      ? translations[lang] 
+      : (typeof translations !== 'undefined' ? translations.fa : null);
+    const text = (dict && dict.splash_btn) ? dict.splash_btn : (lang === 'fa' ? 'ورود' : 'ENTER');
+    const hintText = (dict && dict.splash_hint) ? dict.splash_hint : (lang === 'fa' ? 'برای ورود روی حروف کلیک کنید' : 'Click any letter to enter');
+
+    const hintEl = document.getElementById('reveal-text-hint');
+    if (hintEl) hintEl.textContent = hintText;
+
+    const letters = text.trim().split('');
+    const letterDelay = 0.08;
+    const overlayDelay = 0.06;
+    const springDuration = 0.65;
+    const totalSpringDelay = ((letters.length - 1) * letterDelay) + springDuration;
+
+    wordContainer.innerHTML = letters.map((letter, idx) => {
+      const img = REVEAL_LETTER_IMAGES[idx % REVEAL_LETTER_IMAGES.length];
+      const lDelay = (idx * letterDelay).toFixed(2);
+      const sDelay = (totalSpringDelay + (idx * overlayDelay)).toFixed(2);
+
+      return `
+        <span class="reveal-letter" data-letter-index="${idx}" style="--letter-delay: ${lDelay}s; --sweep-delay: ${sDelay}s;" tabindex="0" role="button" aria-label="${letter}">
+          <span class="reveal-layer-base" aria-hidden="true">${letter}</span>
+          <span class="reveal-layer-image" aria-hidden="true" style="background-image: url('${img}');">${letter}</span>
+          <span class="reveal-layer-overlay" aria-hidden="true">${letter}</span>
+        </span>
+      `;
+    }).join('');
+
+    // Attach click and keyboard listeners to every single letter so clicking any letter enters
+    const letterEls = wordContainer.querySelectorAll('.reveal-letter');
+    letterEls.forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dismissSplashAndPlay();
+      });
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.code === 'Space') {
+          e.preventDefault();
+          dismissSplashAndPlay();
+        }
+      });
+    });
+  }
+
   function initSplashScreen() {
     getElements();
     if (!splashEl) return;
@@ -180,9 +242,13 @@
     splashEl.style.display = 'flex';
     isSplashDismissed = false;
 
-    // Click strictly on "ورود" button
-    if (splashBtn) {
-      splashBtn.addEventListener('click', (e) => {
+    // Render interactive RevealText typography
+    renderRevealText();
+
+    // Click on container or button also triggers dismissal
+    const enterContainer = document.getElementById('splash-enter-btn') || document.getElementById('reveal-text-container');
+    if (enterContainer) {
+      enterContainer.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         dismissSplashAndPlay();
@@ -341,13 +407,8 @@
 
   function updateSplashTranslations() {
     getElements();
-    if (!splashEl || typeof translations === 'undefined') return;
-    const lang = document.documentElement.lang || 'fa';
-    const dict = translations[lang] || translations.fa;
-    if (!dict) return;
-
-    const btnText = document.getElementById('splash-btn-text');
-    if (btnText && dict.splash_btn) btnText.textContent = dict.splash_btn;
+    if (!splashEl) return;
+    renderRevealText();
   }
 
   // Multi-phase initialization

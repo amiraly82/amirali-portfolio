@@ -40,10 +40,12 @@
   <div class="intro-splash-screen" id="intro-splash" role="dialog" aria-modal="true" aria-label="ورود">
     <div class="splash-ambient-dust" aria-hidden="true"></div>
     <div class="splash-center-content">
-      <button type="button" class="splash-enter-btn" id="splash-enter-btn" aria-label="ورود">
-        <span class="btn-shine" aria-hidden="true"></span>
-        <span class="btn-text" id="splash-btn-text" data-i18n="splash_btn">ورود</span>
-      </button>
+      <div class="reveal-text-container" id="splash-enter-btn" tabindex="0" role="button" aria-label="ورود به سایت">
+        <div class="reveal-text-word" id="reveal-text-word">
+          <!-- Populated dynamically per letter with RevealText effect -->
+        </div>
+        <p class="reveal-text-hint" id="reveal-text-hint" data-i18n="splash_hint">برای ورود روی حروف کلیک کنید</p>
+      </div>
     </div>
   </div>
 

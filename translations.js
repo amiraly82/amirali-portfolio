@@ -233,7 +233,8 @@ const translations = {
     bonfire_action_leave: "Leave Bonfire & Continue Journey",
 
     // Splash Screen
-    splash_btn: "ENTER"
+    splash_btn: "ENTER",
+    splash_hint: "Click any letter to enter"
   },
 
   fa: {
@@ -465,7 +466,8 @@ const translations = {
     bonfire_action_leave: "برخاستن و ادامه مسیر",
 
     // Splash Screen
-    splash_btn: "ورود"
+    splash_btn: "ورود",
+    splash_hint: "برای ورود روی حروف کلیک کنید"
   }
 };
 

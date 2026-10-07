@@ -6051,129 +6051,231 @@ body.visual-admin-mode .intro-splash-screen,
 }
 
 /* ==========================================================================
-   MINIMAL LUXURY ENTRY BUTTON ("ورود")
+   REVEAL TEXT INTERACTIVE INTRO (Typography Entry Showcase)
    ========================================================================== */
-.splash-enter-btn {
+
+.reveal-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  padding: 20px 10px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-decoration: none;
+}
+
+.reveal-text-word {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 1.2vw, 18px);
+  position: relative;
+  direction: ltr;
+}
+
+html[lang="fa"] .reveal-text-word {
+  direction: rtl;
+  gap: clamp(6px, 1.6vw, 22px);
+}
+
+/* Individual Interactive Letter Panel */
+.reveal-letter {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 175px;
-  padding: 17px 56px;
-  border-radius: 9999px;
-  background: rgba(12, 17, 22, 0.78);
-  border: 1px solid rgba(255, 215, 0, 0.42);
-  color: #f5f7fa;
-  font-family: var(--font-persian-heading, 'AbarHigh', system-ui, sans-serif);
-  font-size: 1.22rem;
-  font-weight: 700;
-  cursor: pointer;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  line-height: 1.2;
-  overflow: hidden;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5),
-              0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              background 0.4s ease,
-              border-color 0.4s ease,
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              color 0.3s ease,
-              letter-spacing 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.75s ease,
-              filter 0.8s ease;
-  will-change: transform, box-shadow, letter-spacing;
-}
-
-html[lang="en"] .splash-enter-btn {
-  font-family: var(--font-sans, system-ui, sans-serif);
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-}
-
-/* Ethereal golden aura behind button */
-.splash-enter-btn::before {
-  content: '';
-  position: absolute;
-  inset: -14px;
-  border-radius: inherit;
-  background: radial-gradient(ellipse at 50% 50%, rgba(255, 215, 0, 0.45) 0%, rgba(24, 63, 39, 0.65) 60%, transparent 80%);
-  filter: blur(26px);
-  opacity: 0.22;
-  z-index: -1;
-  pointer-events: none;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Atmospheric light flare sweeping across button */
-.splash-enter-btn .btn-shine {
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 55%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.28) 50%, transparent 100%);
-  transform: skewX(-25deg);
-  pointer-events: none;
-  transition: left 0.75s ease;
-}
-
-.splash-enter-btn .btn-text {
-  position: relative;
-  z-index: 2;
-  transition: transform 0.3s ease, letter-spacing 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Captivating Hover Effect */
-.splash-enter-btn:hover {
-  transform: translateY(-3px) scale(1.045);
-  background: linear-gradient(135deg, rgba(24, 63, 39, 0.94) 0%, rgba(11, 33, 19, 0.98) 100%);
-  border-color: #ffd700;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: clamp(4.5rem, 14vw, 12rem);
+  font-weight: 950;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
   color: #ffffff;
-  letter-spacing: 0.16em;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65),
-              0 0 45px rgba(255, 215, 0, 0.45),
-              0 0 18px rgba(255, 215, 0, 0.3) inset;
-}
-
-html[lang="en"] .splash-enter-btn:hover {
-  letter-spacing: 0.38em;
-}
-
-.splash-enter-btn:hover::before {
-  opacity: 0.85;
-  transform: scale(1.22);
-  filter: blur(34px);
-  background: radial-gradient(ellipse at 50% 50%, rgba(255, 215, 0, 0.65) 0%, rgba(24, 63, 39, 0.85) 60%, transparent 85%);
-}
-
-.splash-enter-btn:hover .btn-shine {
-  left: 170%;
-}
-
-.splash-enter-btn:active {
-  transform: translateY(1px) scale(0.97);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5),
-              0 0 25px rgba(255, 215, 0, 0.35);
-}
-
-/* Cinematic Entry Animation on Click */
-.intro-splash-screen.is-dismissed .splash-enter-btn {
-  transform: scale(1.24);
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0 4px;
+  transform: scale(0);
   opacity: 0;
-  filter: blur(14px);
+  animation: reveal-letter-spring 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(var(--letter-delay, 0s));
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.3s ease;
+  will-change: transform, opacity;
+}
+
+html[lang="fa"] .reveal-letter {
+  font-family: var(--font-persian-heading, 'AbarHigh', system-ui, serif);
+  font-size: clamp(4.8rem, 15vw, 12.5rem);
+  font-weight: 800;
+  letter-spacing: normal;
+}
+
+.reveal-letter:hover,
+.reveal-letter:focus-visible {
+  transform: translateY(-8px) scale(1.08);
+  filter: drop-shadow(0 14px 28px rgba(251, 191, 36, 0.45));
+  z-index: 10;
+  outline: none;
+}
+
+.reveal-letter:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+/* Keyframe for Letter Spring entrance */
+@keyframes reveal-letter-spring {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  82% {
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Layer 1: Base Text (Crisp White) */
+.reveal-layer-base {
+  position: relative;
+  display: block;
+  color: #ffffff;
+  transition: opacity 0.15s ease;
+  z-index: 1;
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+}
+
+.reveal-letter:hover .reveal-layer-base {
+  opacity: 0;
+}
+
+/* Layer 2: Image Mask with Background Panning */
+.reveal-layer-image {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  background-size: 220% 220%;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transition: opacity 0.15s ease, background-position 2.8s ease-in-out;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.4));
+}
+
+.reveal-letter:hover .reveal-layer-image {
+  opacity: 1;
+  background-position: 100% 50%;
+}
+
+/* Layer 3: Overlay Sweep across letters */
+.reveal-layer-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fbbf24;
+  text-shadow: 0 0 25px rgba(251, 191, 36, 0.8), 0 0 50px rgba(245, 158, 11, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  animation: reveal-overlay-sweep 0.45s ease-in-out forwards;
+  animation-delay: calc(var(--sweep-delay, 0.8s));
+}
+
+@keyframes reveal-overlay-sweep {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Subtle pulse hint beneath the letters */
+.reveal-text-hint {
+  margin-top: clamp(24px, 4vh, 40px);
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  animation: reveal-hint-fade 2.5s ease-in-out infinite alternate;
+  transition: color 0.3s ease, letter-spacing 0.3s ease;
   pointer-events: none;
 }
 
-@media (max-width: 576px) {
-  .splash-enter-btn {
-    min-width: 155px;
-    padding: 15px 44px;
-    font-size: 1.1rem;
+html[lang="fa"] .reveal-text-hint {
+  font-family: var(--font-persian-body, 'AbarLow', sans-serif);
+  letter-spacing: normal;
+}
+
+.reveal-text-container:hover .reveal-text-hint {
+  color: #fbbf24;
+  letter-spacing: 0.24em;
+}
+
+html[lang="fa"] .reveal-text-container:hover .reveal-text-hint {
+  letter-spacing: normal;
+}
+
+@keyframes reveal-hint-fade {
+  0% { opacity: 0.35; transform: translateY(0); }
+  100% { opacity: 0.85; transform: translateY(-3px); }
+}
+
+/* When splash dismissed, cinematic exit of reveal text */
+.intro-splash-screen.is-dismissed .reveal-text-container {
+  transform: scale(1.18);
+  opacity: 0;
+  filter: blur(16px);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.7s ease,
+              filter 0.8s ease;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .reveal-letter {
+    font-size: clamp(3.4rem, 18vw, 5.2rem);
+    padding: 0 2px;
+  }
+  html[lang="fa"] .reveal-letter {
+    font-size: clamp(3.6rem, 20vw, 5.6rem);
+  }
+  .reveal-text-hint {
+    margin-top: 18px;
+    font-size: 0.82rem;
   }
 }
 
