@@ -26,12 +26,11 @@ export function RevealText({
   overlayDuration = 0.4,
   springDuration = 600,
   letterImages = [
-    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80",
+    "/ورود/۰۷.png",
+    "/ورود/Camera_push_in_on_sword_20260915183317.jpeg",
+    "/ورود/Character_looking_at_camera_2K_20260915172812.jpeg",
+    "/ورود/ChatGPT Image Sep 15, 2026, 05_54_02 PM.png",
+    "/ورود/Warrior_holding_sword_in_guard_20260915182713.jpeg"
   ],
   onClick,
 }: RevealTextProps) {
