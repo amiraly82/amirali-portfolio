@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مطالعه موردی و گالری پروژه — امیرعلی ایزی | Case Study & Visual Gallery</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+
+  <!-- Google Fonts: Playfair Display, Plus Jakarta Sans, Vazirmatn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="assets/fonts/custom_fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="project-page-body">
+
+  <!-- Background Music Audio Stream (Motoi Sakuraba - Knight Artorias) -->
+  <audio id="bg-music" src="bg-music.mp3" loop playsinline preload="auto">
+    <source src="bg-music.mp3" type="audio/mpeg">
+    <source src="Motoi%20Sakuraba%20-%20Knight%20Artorias.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Site Header -->
+  <header class="site-header" id="site-header" style="background: rgba(237, 240, 245, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-medium);">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo" id="brand-logo">
+        <span class="logo-first">AMIRALI</span>
+        <span class="logo-last">EASY</span>
+      </a>
+
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="works.html" class="nav-link" data-i18n="back_to_works">← بازگشت به گالری آثار</a></li>
+          <li><a href="index.html" class="nav-link" data-i18n="back_to_home">صفحه اصلی</a></li>
+          <li><a href="index.html#contact" class="nav-link nav-contact" data-i18n="nav_contact">تماس ↗</a></li>
+          
+          <!-- Bilingual Language Switcher -->
+          <li class="lang-switcher-wrap">
+            <div class="lang-switcher" id="lang-switcher" role="group" aria-label="Language Switcher">
+              <button type="button" class="lang-btn active" data-lang="fa" id="btn-lang-fa">فا</button>
+              <span class="lang-divider">/</span>
+              <button type="button" class="lang-btn" data-lang="en" id="btn-lang-en">EN</button>
+            </div>
+          </li>
+
+          <!-- Background Music Control -->
+          <li class="audio-toggle-wrap">
+            <button type="button" class="audio-toggle-btn" id="audio-toggle-btn" aria-label="Toggle Background Music" title="موسیقی پس‌زمینه">
+              <span class="audio-wave-bars" aria-hidden="true">
+                <span class="bar bar-1"></span>
+                <span class="bar bar-2"></span>
+                <span class="bar bar-3"></span>
+                <span class="bar bar-4"></span>
+              </span>
+              <span class="audio-toggle-label" id="audio-toggle-label">موسیقی</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Project Content Container -->
+  <main class="page-container" id="project-page-container">
+
+    <!-- Project Hero (Above The Fold: Title, Summary & Featured Visual Side-by-Side) -->
+    <section class="project-hero" id="project-hero">
+      <div class="project-hero-split">
+        
+        <!-- Right Column (RTL): Breadcrumbs, Titles, Summary & Quick Meta -->
+        <div class="project-hero-content">
+          <div class="project-breadcrumbs">
+            <a href="index.html" class="breadcrumb-link" data-i18n="breadcrumb_home">صفحه اصلی</a>
+            <span class="breadcrumb-sep">/</span>
+            <a href="works.html" class="breadcrumb-link" data-i18n="nav_work">گالری آثار</a>
+            <span class="breadcrumb-sep">/</span>
+            <span id="breadcrumb-current-title" class="breadcrumb-current">...</span>
+          </div>
+
+          <div class="project-hero-meta-badge-row">
+            <span class="project-hero-badge" id="project-cat-badge">...</span>
+            <span class="project-hero-year-pill" id="project-year-badge">...</span>
+          </div>
+
+          <h1 class="project-hero-title" id="project-main-title">...</h1>
+          <p class="project-hero-subtitle" id="project-main-subtitle">...</p>
+
+          <!-- Quick Highlight Pills -->
+          <div class="project-hero-quick-meta">
+            <div class="quick-meta-pill">
+              <span class="quick-meta-label" data-i18n="modal_client">کارفرما:</span>
+              <span class="quick-meta-value" id="quick-meta-client">...</span>
+            </div>
+            <div class="quick-meta-pill">
+              <span class="quick-meta-label" data-i18n="modal_role">نقش:</span>
+              <span class="quick-meta-value" id="quick-meta-role">...</span>
+            </div>
+          </div>
+
+          <!-- Direct scroll action to details & gallery below fold -->
+          <div class="project-hero-actions">
+            <a href="#project-details" class="btn-scroll-details" id="btn-scroll-details">
+              <span data-i18n="hero_explore_details">مشاهده جزئیات و گالری اثر ↓</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Pure Frameless Project Image -->
+        <div class="project-hero-media" id="project-hero-media">
+          <img src="" alt="" id="project-hero-cover-img" class="project-hero-cover-img" loading="eager" role="button" tabindex="0" title="مشاهده در بزرگ‌نمایی کامل">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Supplementary In-Depth Details (Below The Fold) -->
+    <div id="project-details" class="project-details-wrapper">
+
+      <!-- Project Metadata Grid -->
+      <div class="project-meta-grid" id="project-meta-grid">
+        <div class="project-meta-item">
+          <span class="project-meta-item-label" data-i18n="modal_client">کارفرما</span>
+          <span class="project-meta-item-value" id="meta-client">...</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-item-label" data-i18n="modal_year">سال</span>
+          <span class="project-meta-item-value" id="meta-year">...</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-item-label" data-i18n="modal_role">نقش</span>
+          <span class="project-meta-item-value" id="meta-role">...</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-item-label" data-i18n="project_tools_label">سلاح‌ها و ابزارهای دیزاین</span>
+          <div class="project-tools-tags" id="meta-tools">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Metrics Bar -->
+      <div class="project-metrics-row" id="project-metrics-row">
+        <!-- Injected dynamically -->
+      </div>
+
+      <!-- Narrative & Deliverables Section -->
+      <section class="project-narrative-section">
+        <div class="narrative-content">
+          <h2 class="narrative-heading" data-i18n="project_details_heading">فلسفه خلق، چالش و روایت دیزاین</h2>
+          <div id="narrative-text">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+        <div class="deliverables-box">
+          <h3 class="deliverables-heading" data-i18n="project_deliverables_heading">اقلام تحویلی و ویژگی‌های کلیدی</h3>
+          <ul class="deliverables-list" id="deliverables-list">
+            <!-- Injected dynamically -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- Full Visual Gallery Section (Deep Visual Showcase) -->
+      <section class="project-gallery-section" id="project-gallery">
+        <div class="gallery-section-header">
+          <h2 class="gallery-section-title" data-i18n="project_gallery_heading">گالری کامل تصاویر و جزئیات اثر</h2>
+          <p class="gallery-section-desc" data-i18n="project_gallery_sub">برای مشاهده با کیفیت اصلی و بزرگ‌نمایی، روی هر تصویر کلیک کنید</p>
+        </div>
+
+        <div class="project-visuals-grid" id="project-visuals-grid">
+          <!-- Injected dynamically with all project gallery images -->
+        </div>
+      </section>
+
+      <!-- Next & Previous Project Navigation Footer -->
+      <nav class="project-pagination-footer" id="project-pagination-nav">
+        <!-- Injected dynamically -->
+      </nav>
+
+      <!-- Call to Action Banner -->
+      <section class="project-cta-banner">
+        <h2 class="project-cta-title" data-i18n="similar_project_cta">مشتاق شروع پروژه‌ای متمایز و ماندگار با یکدیگرید؟</h2>
+        <p class="project-cta-subtitle" data-i18n="contact_lead">
+          چه در حال پایه‌گذاری یک نهاد فرهنگی نوین باشید، چه راه‌اندازی برندی جسور یا نیازمند کارگردانی هنری برای پروژه‌ای شاخص — استودیوی من مشتاق همکاری است.
+        </p>
+        <a href="index.html#contact" class="btn-project-cta">
+          <span data-i18n="similar_project_btn">شروع گفتگو و همکاری ↗</span>
+        </a>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Fullscreen Lightbox Modal -->
+  <div class="lightbox-modal" id="lightbox-modal" aria-hidden="true">
+    <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">✕</button>
+    <button class="lightbox-nav-btn lightbox-nav-prev" id="lightbox-prev-btn" aria-label="Previous Image">‹</button>
+    <button class="lightbox-nav-btn lightbox-nav-next" id="lightbox-next-btn" aria-label="Next Image">›</button>
+
+    <div class="lightbox-media-wrapper">
+      <img src="" alt="" class="lightbox-img" id="lightbox-img">
+    </div>
+
+    <div class="lightbox-caption-bar">
+      <h4 class="lightbox-caption-title" id="lightbox-title"></h4>
+      <p class="lightbox-caption-text" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <a href="index.html" class="brand-logo footer-logo">
+          <span class="logo-first">AMIRALI</span>
+          <span class="logo-last">EASY</span>
+        </a>
+        <p class="footer-tagline" data-i18n="footer_tagline">طراحی‌شده با وسواس، دقت و اشتیاق هنری.</p>
+      </div>
+      <div class="footer-center">
+        <span class="footer-copy" data-i18n="footer_rights">تمامی حقوق برای امیرعلی ایزی محفوظ است.</span>
+      </div>
+      <div class="footer-right">
+        <a href="works.html" class="back-to-top-btn">
+          <span data-i18n="back_to_works">← بازگشت به گالری آثار</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="translations.js"></script>
+  <script src="projects_data.js"></script>
+  <script src="site_loader.js"></script>
+  <script src="audio_player.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let currentLang = localStorage.getItem('amirali_lang') || 'fa';
+      
+      const params = new URLSearchParams(window.location.search);
+      const projectId = params.get('id') || 'solaris';
+
+      const projectIndex = PROJECTS_DATA.findIndex(p => p.id === projectId);
+      const currentProject = projectIndex !== -1 ? PROJECTS_DATA[projectIndex] : PROJECTS_DATA[0];
+
+      const btnFa = document.getElementById('btn-lang-fa');
+      const btnEn = document.getElementById('btn-lang-en');
+
+      // Lightbox state
+      let activeLightboxIndex = 0;
+      const lightboxModal = document.getElementById('lightbox-modal');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxTitle = document.getElementById('lightbox-title');
+      const lightboxCaption = document.getElementById('lightbox-caption');
+      const lightboxClose = document.getElementById('lightbox-close-btn');
+      const lightboxPrev = document.getElementById('lightbox-prev-btn');
+      const lightboxNext = document.getElementById('lightbox-next-btn');
+
+      function getTranslations() {
+        return (typeof translations !== 'undefined' && translations[currentLang]) ? translations[currentLang] : {};
+      }
+
+      function renderProject() {
+        if (!currentProject) return;
+        const info = currentProject[currentLang] || currentProject.fa;
+        const t = getTranslations();
+
+        // Update titles & breadcrumb
+        document.getElementById('breadcrumb-current-title').textContent = info.title;
+        document.getElementById('project-cat-badge').textContent = info.categoryName;
+        const yearVal = currentLang === 'fa' ? currentProject.year : (currentProject.yearEn || currentProject.year);
+        const yearBadge = document.getElementById('project-year-badge');
+        if (yearBadge) yearBadge.textContent = yearVal;
+        document.getElementById('project-main-title').textContent = info.title;
+        document.getElementById('project-main-subtitle').textContent = info.subtitle || info.summary;
+
+        // Quick meta pills in hero
+        const quickClient = document.getElementById('quick-meta-client');
+        if (quickClient) quickClient.textContent = info.client;
+        const quickRole = document.getElementById('quick-meta-role');
+        if (quickRole) quickRole.textContent = info.role;
+
+        // Featured Cover Image (Above The Fold)
+        const coverImg = document.getElementById('project-hero-cover-img');
+        if (coverImg && currentProject.images && currentProject.images[0]) {
+          const firstImg = currentProject.images[0];
+          coverImg.src = firstImg.src;
+          coverImg.alt = currentLang === 'fa' ? firstImg.titleFa : firstImg.titleEn;
+        }
+
+        // Meta items
+        document.getElementById('meta-client').textContent = info.client;
+        document.getElementById('meta-year').textContent = yearVal;
+        document.getElementById('meta-role').textContent = info.role;
+
+        // Tools
+        const toolsContainer = document.getElementById('meta-tools');
+        toolsContainer.innerHTML = (currentProject.tools || [])
+          .map(tool => `<span class="project-tool-tag">${tool}</span>`)
+          .join('');
+
+        // Metrics
+        const metricsContainer = document.getElementById('project-metrics-row');
+        const metricsList = currentProject.metrics ? (currentProject.metrics[currentLang] || currentProject.metrics.fa) : [];
+        metricsContainer.innerHTML = metricsList.map(m => `
+          <div class="metric-card">
+            <span class="metric-value">${m.value}</span>
+            <span class="metric-label">${m.label}</span>
+          </div>
+        `).join('');
+
+        // Narrative & Deliverables
+        document.getElementById('narrative-text').innerHTML = `
+          <p class="narrative-p">${info.concept}</p>
+        `;
+
+        document.getElementById('deliverables-list').innerHTML = (info.highlights || []).map(h => `
+          <li class="deliverable-item">
+            <span class="deliverable-bullet">✓</span>
+            <span>${h}</span>
+          </li>
+        `).join('');
+
+        // Full Visual Gallery
+        const galleryGrid = document.getElementById('project-visuals-grid');
+        const zoomText = currentLang === 'fa' ? 'بزرگ‌نمایی 🔍' : 'Zoom 🔍';
+
+        galleryGrid.innerHTML = (currentProject.images || []).map((img, idx) => {
+          const imgTitle = currentLang === 'fa' ? img.titleFa : img.titleEn;
+          const imgCaption = currentLang === 'fa' ? img.captionFa : img.captionEn;
+
+          return `
+            <div class="visual-item" data-index="${idx}">
+              <img src="${img.src}" alt="${imgTitle}" class="visual-img" loading="lazy">
+              <div class="visual-zoom-badge">${zoomText}</div>
+              <div class="visual-overlay">
+                <h3 class="visual-overlay-title">${imgTitle}</h3>
+                <p class="visual-overlay-caption">${imgCaption}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Attach click listeners to gallery images
+        galleryGrid.querySelectorAll('.visual-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const idx = parseInt(item.getAttribute('data-index'), 10);
+            openLightbox(idx);
+          });
+        });
+
+        // Pagination (Prev & Next Project)
+        const totalProjects = PROJECTS_DATA.length;
+        const prevIdx = (projectIndex - 1 + totalProjects) % totalProjects;
+        const nextIdx = (projectIndex + 1) % totalProjects;
+        const prevProj = PROJECTS_DATA[prevIdx];
+        const nextProj = PROJECTS_DATA[nextIdx];
+        const prevInfo = prevProj[currentLang] || prevProj.fa;
+        const nextInfo = nextProj[currentLang] || nextProj.fa;
+
+        const prevLabel = t.project_prev || (currentLang === 'fa' ? '← پروژه قبلی' : '← Previous Project');
+        const nextLabel = t.project_next || (currentLang === 'fa' ? 'پروژه بعدی →' : 'Next Project →');
+
+        document.getElementById('project-pagination-nav').innerHTML = `
+          <a href="project.html?id=${prevProj.id}" class="project-pagination-btn">
+            <div>
+              <span class="pagination-direction-label">${prevLabel}</span>
+              <span class="pagination-project-title">${prevInfo.title}</span>
+            </div>
+          </a>
+          <a href="works.html" class="btn-works-archive" style="padding: 12px 24px; font-size: 0.9rem;">
+            <span>${t.back_to_works || (currentLang === 'fa' ? 'آرشیو آثار ↗' : 'All Works ↗')}</span>
+          </a>
+          <a href="project.html?id=${nextProj.id}" class="project-pagination-btn" style="text-align: ${currentLang === 'fa' ? 'left' : 'right'};">
+            <div>
+              <span class="pagination-direction-label">${nextLabel}</span>
+              <span class="pagination-project-title">${nextInfo.title}</span>
+            </div>
+          </a>
+        `;
+      }
+
+      function openLightbox(index) {
+        if (!currentProject.images || !currentProject.images[index]) return;
+        activeLightboxIndex = index;
+        const img = currentProject.images[index];
+        lightboxImg.src = img.src;
+        lightboxTitle.textContent = currentLang === 'fa' ? img.titleFa : img.titleEn;
+        lightboxCaption.textContent = currentLang === 'fa' ? img.captionFa : img.captionEn;
+
+        lightboxModal.classList.add('is-open');
+        lightboxModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightboxModal.classList.remove('is-open');
+        lightboxModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      function prevLightboxImage() {
+        if (!currentProject.images) return;
+        const newIdx = (activeLightboxIndex - 1 + currentProject.images.length) % currentProject.images.length;
+        openLightbox(newIdx);
+      }
+
+      function nextLightboxImage() {
+        if (!currentProject.images) return;
+        const newIdx = (activeLightboxIndex + 1) % currentProject.images.length;
+        openLightbox(newIdx);
+      }
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxPrev.addEventListener('click', prevLightboxImage);
+      lightboxNext.addEventListener('click', nextLightboxImage);
+
+      const heroCoverImg = document.getElementById('project-hero-cover-img');
+      if (heroCoverImg) {
+        heroCoverImg.addEventListener('click', () => {
+          openLightbox(0);
+        });
+        heroCoverImg.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(0);
+          }
+        });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (!lightboxModal.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') {
+          if (currentLang === 'fa') nextLightboxImage();
+          else prevLightboxImage();
+        }
+        if (e.key === 'ArrowRight') {
+          if (currentLang === 'fa') prevLightboxImage();
+          else nextLightboxImage();
+        }
+      });
+
+      function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('amirali_lang', lang);
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+        if (lang === 'fa') {
+          btnFa.classList.add('active');
+          btnEn.classList.remove('active');
+          document.title = `${currentProject.fa.title} — امیرعلی ایزی`;
+        } else {
+          btnEn.classList.add('active');
+          btnFa.classList.remove('active');
+          document.title = `${currentProject.en.title} — AMIRALI EASY`;
+        }
+
+        const t = getTranslations();
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (t[key]) {
+            el.textContent = t[key];
+          }
+        });
+
+        renderProject();
+      }
+
+      if (btnFa) btnFa.addEventListener('click', () => setLanguage('fa'));
+      if (btnEn) btnEn.addEventListener('click', () => setLanguage('en'));
+
+      setLanguage(currentLang);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="splash-locked">
+<head>
+  <script>
+    (function () {
+      const isVisualAdmin = window.location.search.includes('visual_admin_mode=true') || window.self !== window.top;
+      if (isVisualAdmin) {
+        document.documentElement.classList.remove('splash-locked');
+        document.documentElement.classList.add('in-admin-mode');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMIRALI EASY — طراح گرافیک و کارگردان هنری | Graphic Designer & Art Director</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+
+  <!-- Google Fonts: Playfair Display, Plus Jakarta Sans, and Vazirmatn for Persian typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="assets/fonts/custom_fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Music Audio Stream (Motoi Sakuraba - Knight Artorias) -->
+  <audio id="bg-music" src="bg-music.mp3" loop playsinline preload="auto">
+    <source src="bg-music.mp3" type="audio/mpeg">
+    <source src="Motoi%20Sakuraba%20-%20Knight%20Artorias.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ============================================== -->
+  <!-- CINEMATIC INTRO SPLASH                         -->
+  <!-- ============================================== -->
+  <div class="intro-splash-screen" id="intro-splash" role="dialog" aria-modal="true" aria-label="ورود">
+    <div class="splash-ambient-dust" aria-hidden="true"></div>
+    <div class="splash-center-content">
+      <button type="button" class="splash-enter-btn" id="splash-enter-btn" aria-label="ورود">
+        <span class="btn-shine" aria-hidden="true"></span>
+        <span class="btn-text" id="splash-btn-text" data-i18n="splash_btn">ورود</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Fixed Top Header Navigation -->
+  <header class="site-header" id="site-header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" id="brand-logo">
+        <span class="logo-first">AMIRALI</span>
+        <span class="logo-last">EASY</span>
+      </a>
+
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="#work" class="nav-link" data-i18n="nav_work">آثار</a></li>
+          <li><a href="#scrolly-shield" class="nav-link" data-i18n="nav_about">درباره</a></li>
+          <li><a href="#scrolly-skills" class="nav-link" data-i18n="nav_skills">مهارت‌ها</a></li>
+          <li><a href="#contact" class="nav-link nav-contact" data-i18n="nav_contact">تماس ↗</a></li>
+          
+          <!-- Bilingual Language Switcher -->
+          <li class="lang-switcher-wrap">
+            <div class="lang-switcher" id="lang-switcher" role="group" aria-label="Language Switcher">
+              <button type="button" class="lang-btn active" data-lang="fa" id="btn-lang-fa">فا</button>
+              <span class="lang-divider">/</span>
+              <button type="button" class="lang-btn" data-lang="en" id="btn-lang-en">EN</button>
+            </div>
+          </li>
+
+          <!-- Background Music Control -->
+          <li class="audio-toggle-wrap">
+            <button type="button" class="audio-toggle-btn" id="audio-toggle-btn" aria-label="Toggle Background Music" title="موسیقی پس‌زمینه">
+              <span class="audio-wave-bars" aria-hidden="true">
+                <span class="bar bar-1"></span>
+                <span class="bar bar-2"></span>
+                <span class="bar bar-3"></span>
+                <span class="bar bar-4"></span>
+              </span>
+              <span class="audio-toggle-label" id="audio-toggle-label">موسیقی</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================================== -->
+  <!-- HERO SCROLLYTELLING TRACK                      -->
+  <!-- ============================================== -->
+  <section class="scrolly-hero-track" id="scrolly-hero">
+    <div class="scrolly-sticky-viewport" id="hero-sticky-viewport">
+      
+      <!-- High-Performance Canvas Container (Rockstar Games GTA VI Architecture) -->
+      <div class="video-container" id="video-container">
+        <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+        <div class="video-ambient-overlay"></div>
+      </div>
+
+      <!-- STAGE 01: INTRO -->
+      <div class="hero-stage stage-1" id="stage-1">
+        <div class="stage1-giant-title-wrap">
+          <h1 class="stage1-giant-title">
+            <span class="title-line title-en-only" data-i18n="stage1_title_1">طراح</span>
+            <span class="title-line title-en-only" data-i18n="stage1_title_2">گرافیک</span>
+            <img src="assets/images/hero-title-fa.svg" alt="طراح گرافیک" class="stage1-title-fa-art" draggable="false" />
+          </h1>
+        </div>
+
+        <div class="stage1-bottom-left">
+          <p class="tagline-bold" data-i18n="stage1_tagline_1">ایده‌های جسورانه.</p>
+          <p class="tagline-bold" data-i18n="stage1_tagline_2">با ظرافت خلق‌شده.</p>
+        </div>
+
+        <div class="stage1-bottom-right">
+          <span class="discipline-tag" data-i18n="stage1_discipline">هویت بصری / کارگردانی هنری</span>
+        </div>
+      </div>
+
+      <!-- STAGE 02: APPROACH -->
+      <div class="hero-stage stage-2" id="stage-2">
+        <div class="stage2-left">
+          <h2 class="stage2-headline">
+            <span class="headline-dark" data-i18n="stage2_headline_1">ایده‌ها</span>
+            <span class="headline-accent" data-i18n="stage2_headline_2">شکل می‌گیرند.</span>
+          </h2>
+        </div>
+
+        <div class="stage2-right">
+          <p class="stage2-caption" data-i18n="stage2_caption">کمی نزدیک‌تر.</p>
+        </div>
+      </div>
+
+      <!-- STAGE 03: REVEAL -->
+      <div class="hero-stage stage-3" id="stage-3">
+        <div class="stage3-left">
+          <h2 class="stage3-name">
+            <span class="name-first" data-i18n="stage3_name_first">امیرعلی</span>
+            <span class="name-last" data-i18n="stage3_name_last">ایزی</span>
+          </h2>
+          <p class="stage3-role" data-i18n="stage3_role">طراح گرافیک و آرت دایرکتور.</p>
+        </div>
+
+        <div class="stage3-right">
+          <h3 class="stage3-quote">
+            <span class="quote-line" data-i18n="stage3_quote_1">تخیل،</span>
+            <span class="quote-line" data-i18n="stage3_quote_2">عینیت‌یافته.</span>
+          </h3>
+          <ul class="stage3-services">
+            <li data-i18n="stage3_service_1">هویت بصری</li>
+            <li data-i18n="stage3_service_2">کارگردانی هنری</li>
+            <li data-i18n="stage3_service_3">تصویرسازی</li>
+          </ul>
+          <a href="#work" class="btn-explore-work" id="btn-explore-work">
+            <span data-i18n="stage3_btn">مشاهده آثار ↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- BOTTOM DOCK -->
+      <div class="hero-bottom-dock" id="hero-dock">
+        <div class="dock-progress-track">
+          <div class="dock-progress-fill" id="dock-progress-fill"></div>
+        </div>
+
+        <div class="dock-content">
+          <div class="dock-stages-wrapper">
+            <button class="stage-nav-btn active" data-target-progress="0.0" id="dock-stage-btn">
+              <span id="dock-stage-text">۰۱ / مقدمه</span>
+            </button>
+          </div>
+
+          <div class="dock-center-prompt" id="dock-prompt-wrap">
+            <span id="dock-prompt-text">برای کشف اسکرول کنید ↓</span>
+          </div>
+
+          <div class="dock-right-action">
+            <a href="#work" class="dock-link" id="dock-action-link" data-i18n="dock_action_skip">پرش به آثار ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 02: THE SHIELD & ABOUT SCROLLYTELLING  -->
+  <!-- ============================================== -->
+  <section class="scrolly-shield-track" id="scrolly-shield">
+    <div class="scrolly-sticky-viewport" id="shield-sticky-viewport">
+      
+      <!-- Shield Canvas Container (Fullscreen) -->
+      <div class="video-container" id="shield-video-container">
+        <canvas id="shield-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+        <div class="shield-ambient-overlay"></div>
+      </div>
+
+      <!-- Introduction & Philosophy Content (Positioned on the empty white right side) -->
+      <div class="shield-intro-content" id="shield-intro-content">
+        <div class="shield-content-card">
+          <span class="shield-eyebrow" data-i18n="shield_eyebrow">۰۴ / درباره امیرعلی ایزی</span>
+          <h2 class="shield-headline">
+            <span data-i18n="shield_headline_1">آمیخته با تخیل.</span><br>
+            <span class="headline-accent" data-i18n="shield_headline_2">صیقل‌خورده با انضباط.</span>
+          </h2>
+          
+          <div class="shield-bio">
+            <p class="lead-text" data-i18n="shield_bio_1">
+              من امیرعلی ایزی هستم — طراح گرافیک و کارگردان هنری چندرشته‌ای، با اشتیاقی عمیق به تایپوگرافی پرکنتراست، فضاسازی‌های اسطوره‌ای و خلق سیستم‌های هویت برند مدرن.
+            </p>
+            <p data-i18n="shield_bio_2">
+              همانند نقش خورشید حک‌شده بر این سپر، هر هویتی که خلق می‌کنم برای ایستادگی، اصالت و تمایز طراحی می‌شود. از استراتژی مفهومی برند تا موشن‌دیزاین سه‌بعدی، روایات پیچیده را به تأثیرات بصری ملموس و ماندگار بدل می‌سازم.
+            </p>
+          </div>
+
+          <!-- Highlight Metrics Bar -->
+          <div class="shield-stats-grid">
+            <div class="shield-stat-item">
+              <span class="shield-stat-number" data-i18n="shield_stat_1_num">۰۷+</span>
+              <span class="shield-stat-label" data-i18n="shield_stat_1_lbl">سال تجربه حرفه‌ای</span>
+            </div>
+            <div class="shield-stat-item">
+              <span class="shield-stat-number" data-i18n="shield_stat_2_num">۴۵+</span>
+              <span class="shield-stat-label" data-i18n="shield_stat_2_lbl">سیستم هویت برند</span>
+            </div>
+            <div class="shield-stat-item">
+              <span class="shield-stat-number" data-i18n="shield_stat_3_num">۱۲</span>
+              <span class="shield-stat-label" data-i18n="shield_stat_3_lbl">افتخار و جایزه دیزاین</span>
+            </div>
+            <div class="shield-stat-item">
+              <span class="shield-stat-number" data-i18n="shield_stat_4_num">۱۰۰٪</span>
+              <span class="shield-stat-label" data-i18n="shield_stat_4_lbl">تعهد به جزئیات</span>
+            </div>
+          </div>
+
+          <!-- Core Disciplines Tags -->
+          <div class="shield-caps">
+            <span class="shield-tag" data-i18n="shield_tag_1">استراتژی و هویت برند</span>
+            <span class="shield-tag" data-i18n="shield_tag_2">کارگردانی هنری</span>
+            <span class="shield-tag" data-i18n="shield_tag_3">تایپوگرافی و طراحی نشر</span>
+            <span class="shield-tag" data-i18n="shield_tag_4">تجسم سه‌بعدی و موشن</span>
+          </div>
+
+          <!-- Action CTA -->
+          <div class="shield-cta-wrap">
+            <a href="#work" class="btn-explore-work">
+              <span data-i18n="shield_cta">مشاهده آثار برگزیده ↓</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shield Section Bottom Dock -->
+      <div class="hero-bottom-dock shield-bottom-dock" id="shield-dock">
+        <div class="dock-progress-track">
+          <div class="dock-progress-fill" id="shield-dock-progress-fill"></div>
+        </div>
+
+        <div class="dock-content">
+          <div class="dock-stages-wrapper">
+            <span class="stage-nav-btn active" data-i18n="dock_stage_4">۰۴ / سپر و فلسفه دیزاین</span>
+          </div>
+          <div class="dock-center-prompt">
+            <span id="shield-dock-prompt">برای بررسی جزئیات اسکرول کنید ↓</span>
+          </div>
+          <div class="dock-right-action">
+            <a href="#work" class="dock-link" data-i18n="dock_action_skip">پرش به آثار ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 03: THE SWORD & ARSENAL (Skills & Tools) -->
+  <!-- ============================================== -->
+  <section class="scrolly-skills-track" id="scrolly-skills" aria-label="Arsenal of Skills">
+    <div class="skills-sticky-viewport">
+      <!-- Fullscreen Hardware Accelerated Canvas -->
+      <canvas id="skills-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+
+      <!-- Ambient Lighting Layer -->
+      <div class="skills-ambient-overlay"></div>
+
+      <!-- Intro Title Overlay (fades out as camera pushes into the sword) -->
+      <div class="skills-intro-overlay" id="skills-intro-overlay">
+        <span class="skills-eyebrow" data-i18n="skills_eyebrow">۰۳ / سلاح‌های خلق</span>
+        <h2 class="skills-headline">
+          <span data-i18n="skills_title_1">سلاح‌های تخصصی</span>
+          <span class="headline-accent" data-i18n="skills_title_2">دیزاین و خلاقیت</span>
+        </h2>
+        <p class="skills-subtitle" data-i18n="skills_subtitle">برای بررسی شمشیر و جزئیات تسلط به نرم‌افزارها اسکرول کنید</p>
+      </div>
+
+      <!-- Interactive Callouts Container (Staggered reveal on zoom) -->
+      <div class="skills-callouts-container" id="skills-callouts">
+        <!-- SVG connecting lines between pins and cards -->
+        <svg class="skills-lines-svg" id="skills-lines-svg" aria-hidden="true"></svg>
+
+        <!-- 1. Photoshop (Ps) - Down -->
+        <div class="skill-callout callout-down" id="callout-ps" data-sticker="ps">
+          <div class="skill-pin" style="--accent: #31a8ff;">
+            <div class="pin-ring"></div>
+            <div class="pin-dot"></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <span class="skill-badge badge-ps">Ps</span>
+              <div class="skill-card-titles">
+                <span class="skill-card-name" data-i18n="skill_ps_name">Adobe Photoshop</span>
+                <span class="skill-card-level" data-i18n="skill_ps_level">۱۰۰٪ — تسلط کامل</span>
+              </div>
+            </div>
+            <p class="skill-card-desc" data-i18n="skill_ps_desc">فتومونتاژ پیشرفته، ادیت عکس و خلق دیجیتال</p>
+            <div class="skill-meter-track">
+              <div class="skill-meter-fill" style="width: 100%; background: #31a8ff;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Illustrator (Ai) - Up -->
+        <div class="skill-callout callout-up" id="callout-ai" data-sticker="ai">
+          <div class="skill-pin" style="--accent: #ff9a00;">
+            <div class="pin-ring"></div>
+            <div class="pin-dot"></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <span class="skill-badge badge-ai">Ai</span>
+              <div class="skill-card-titles">
+                <span class="skill-card-name" data-i18n="skill_ai_name">Adobe Illustrator</span>
+                <span class="skill-card-level" data-i18n="skill_ai_level">۹۸٪ — سطح ارشد</span>
+              </div>
+            </div>
+            <p class="skill-card-desc" data-i18n="skill_ai_desc">طراحی وکتور، تایپوگرافی، سیستم هویت بصری و لوگو</p>
+            <div class="skill-meter-track">
+              <div class="skill-meter-fill" style="width: 98%; background: #ff9a00;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. InDesign (Id) - Down -->
+        <div class="skill-callout callout-down" id="callout-id" data-sticker="id">
+          <div class="skill-pin" style="--accent: #ff3366;">
+            <div class="pin-ring"></div>
+            <div class="pin-dot"></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <span class="skill-badge badge-id">Id</span>
+              <div class="skill-card-titles">
+                <span class="skill-card-name" data-i18n="skill_id_name">Adobe InDesign</span>
+                <span class="skill-card-level" data-i18n="skill_id_level">۹۵٪ — سطح ارشد</span>
+              </div>
+            </div>
+            <p class="skill-card-desc" data-i18n="skill_id_desc">صفحه‌آرایی تخصصی، گرید، کتاب، نشریه و دیزاین نشر</p>
+            <div class="skill-meter-track">
+              <div class="skill-meter-fill" style="width: 95%; background: #ff3366;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Blender 3D - Up -->
+        <div class="skill-callout callout-up" id="callout-blender" data-sticker="blender">
+          <div class="skill-pin" style="--accent: #ea7600;">
+            <div class="pin-ring"></div>
+            <div class="pin-dot"></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <span class="skill-badge badge-blender">3D</span>
+              <div class="skill-card-titles">
+                <span class="skill-card-name" data-i18n="skill_blender_name">Blender 3D</span>
+                <span class="skill-card-level" data-i18n="skill_blender_level">۹۰٪ — پیشرفته</span>
+              </div>
+            </div>
+            <p class="skill-card-desc" data-i18n="skill_blender_desc">مدل‌سازی سه‌بعدی، رندرینگ واقع‌گرایانه، متریال و نور</p>
+            <div class="skill-meter-track">
+              <div class="skill-meter-fill" style="width: 90%; background: #ea7600;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. After Effects (Ae) - Down -->
+        <div class="skill-callout callout-down" id="callout-ae" data-sticker="ae">
+          <div class="skill-pin" style="--accent: #9999ff;">
+            <div class="pin-ring"></div>
+            <div class="pin-dot"></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <span class="skill-badge badge-ae">Ae</span>
+              <div class="skill-card-titles">
+                <span class="skill-card-name" data-i18n="skill_ae_name">Adobe After Effects</span>
+                <span class="skill-card-level" data-i18n="skill_ae_level">۹۴٪ — سطح ارشد</span>
+              </div>
+            </div>
+            <p class="skill-card-desc" data-i18n="skill_ae_desc">موشن گرافیک، جلوه‌های ویژه بصری و تایپوگرافی متحرک</p>
+            <div class="skill-meter-track">
+              <div class="skill-meter-fill" style="width: 94%; background: #9999ff;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Premiere Pro (Pr) - Up -->
+        <div class="skill-callout callout-up" id="callout-pr" data-sticker="pr">
+          <div class="skill-pin" style="--accent: #e78bff;">
+            <div class="pin-ring"></div>
+            <div class="pin-dot"></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <span class="skill-badge badge-pr">Pr</span>
+              <div class="skill-card-titles">
+                <span class="skill-card-name" data-i18n="skill_pr_name">Adobe Premiere Pro</span>
+                <span class="skill-card-level" data-i18n="skill_pr_level">۹۵٪ — سطح ارشد</span>
+              </div>
+            </div>
+            <p class="skill-card-desc" data-i18n="skill_pr_desc">تدوین فیلم و تیزر تبلیغاتی، اصلاح رنگ و روایتگری ویدیو</p>
+            <div class="skill-meter-track">
+              <div class="skill-meter-fill" style="width: 95%; background: #e78bff;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Audition (Au) - Down -->
+        <div class="skill-callout callout-down" id="callout-au" data-sticker="au">
+          <div class="skill-pin" style="--accent: #00e4bb;">
+            <div class="pin-ring"></div>
+            <div class="pin-dot"></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <span class="skill-badge badge-au">Au</span>
+              <div class="skill-card-titles">
+                <span class="skill-card-name" data-i18n="skill_au_name">Adobe Audition</span>
+                <span class="skill-card-level" data-i18n="skill_au_level">۸۸٪ — پیشرفته</span>
+              </div>
+            </div>
+            <p class="skill-card-desc" data-i18n="skill_au_desc">طراحی و ادیت صدا، پالایش صوتی و میکس پادکست و ویدیو</p>
+            <div class="skill-meter-track">
+              <div class="skill-meter-fill" style="width: 88%; background: #00e4bb;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Creative Cloud & AI - Up -->
+        <div class="skill-callout callout-up" id="callout-cloud" data-sticker="cloud">
+          <div class="skill-pin" style="--accent: #8a63d2;">
+            <div class="pin-ring"></div>
+            <div class="pin-dot"></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <span class="skill-badge badge-cloud">AI</span>
+              <div class="skill-card-titles">
+                <span class="skill-card-name" data-i18n="skill_cloud_name">Creative Cloud & AI Suite</span>
+                <span class="skill-card-level" data-i18n="skill_cloud_level">۹۲٪ — مسلط</span>
+              </div>
+            </div>
+            <p class="skill-card-desc" data-i18n="skill_cloud_desc">یکپارچه‌سازی هوش مصنوعی با فرآیند دیزاین و اتوماسیون خلاق</p>
+            <div class="skill-meter-track">
+              <div class="skill-meter-fill" style="width: 92%; background: #8a63d2;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Bottom Dock (03 / ARSENAL) -->
+      <div class="skills-bottom-dock" id="skills-dock">
+        <div class="dock-progress-track">
+          <div class="dock-progress-fill" id="skills-dock-progress-fill"></div>
+        </div>
+        <div class="dock-content">
+          <div class="dock-left-stages">
+            <span class="stage-nav-btn active" data-i18n="skills_dock_stage">۰۳ / سلاح‌ها و مهارت‌ها</span>
+          </div>
+          <div class="dock-center-prompt">
+            <span id="skills-dock-prompt" data-i18n="skills_dock_prompt">برای کاوش برچسب‌های نرم‌افزار اسکرول کنید ↓</span>
+          </div>
+          <div class="dock-right-action">
+            <a href="#work" class="dock-link" data-i18n="skills_dock_action">مشاهده نمونه‌آثار ↓</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SECTION 04: THE BATTLEFIELD & SELECTED WORKS    -->
+  <!-- ============================================== -->
+  <section class="scrolly-works-track" id="scrolly-works" aria-label="Battlefield & Selected Works">
+    <div class="works-sticky-viewport" id="works-sticky-viewport">
+      
+      <!-- Fullscreen Hardware Accelerated Canvas -->
+      <div class="works-canvas-container" id="works-canvas-container">
+        <canvas id="works-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+      </div>
+
+      <!-- Ambient Lighting Layer -->
+      <div class="works-ambient-overlay"></div>
+
+      <!-- Dynamic Frosted Glass Blur Backdrop (Smoothly blurs as monsters are fully revealed) -->
+      <div class="works-blur-overlay" id="works-blur-overlay"></div>
+
+      <!-- Battlefield Intro Overlay (Fades out as camera finishes pulling back) -->
+      <div class="works-intro-overlay" id="works-intro-overlay">
+        <div class="works-intro-content">
+          <span class="works-eyebrow" data-i18n="works_eyebrow">۰۴ / میدان نبرد و آثار برگزیده</span>
+          <h2 class="works-headline">
+            <span data-i18n="works_headline_1">هر پروژه،</span><br>
+            <span class="headline-accent" data-i18n="works_headline_2">نبردی فتح‌شده.</span>
+          </h2>
+          <p class="works-subtitle" data-i18n="works_subtitle">برای عقب رفتن دوربین و تماشای میدان نبرد اسکرول کنید ↓</p>
+        </div>
+      </div>
+
+      <!-- Selected Works Interactive Showcase (Enters with attractive staggered 3D animation) -->
+      <div class="works-showcase-container" id="works-showcase-container">
+        <div class="works-showcase-inner" id="work">
+          <div class="works-triptych-layout">
+            
+            <!-- COLUMN 1: Section Title & Intro (Left in LTR, Right in RTL) -->
+            <div class="works-side-col works-title-col">
+              <div class="works-title-sticky">
+                <div class="section-title-wrap">
+                  <span class="section-eyebrow" data-i18n="work_eyebrow">نمونه‌کارها</span>
+                  <h2 class="section-heading works-main-title" data-i18n="work_heading">آثار برگزیده</h2>
+                </div>
+                <p class="works-side-desc" data-i18n="works_side_desc">
+                  گزیده‌ای از پروژه‌های هویت بصری، طراحی نشر، کارگردانی هنری و موشن سه‌بعدی.
+                </p>
+                <div class="works-title-accent-badge">
+                  <span class="badge-dot"></span>
+                  <span data-i18n="works_badge_curated">آرشیو دست‌چین ۲۰۲۴ — ۲۰۲۶</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- COLUMN 2: 3D Stack Carousel (Center in both LTR & RTL) -->
+            <div class="works-center-col">
+              <div class="works-stack-wrapper" id="works-stack-wrapper" tabindex="0" role="region" aria-label="3D Stack of Projects">
+                <div class="works-stack-stage" id="works-stack-stage">
+                  <!-- Dynamically populated and stacked in 3D by ImageStackCarousel -->
+                </div>
+
+                <!-- Controls & Swipe Hint -->
+                <div class="works-stack-controls">
+                  <button type="button" class="stack-nav-btn prev-btn" id="stack-prev-btn" aria-label="پروژه قبلی" title="پروژه قبلی">
+                    <span aria-hidden="true">→</span>
+                  </button>
+                  <div class="stack-meta-info">
+                    <span class="stack-counter" id="stack-counter">۱ / ۶</span>
+                    <span class="stack-hint" data-i18n="stack_drag_hint">برای ورق زدن کارت‌ها را بکشید و پرتاب کنید ↔</span>
+                  </div>
+                  <button type="button" class="stack-nav-btn next-btn" id="stack-next-btn" aria-label="پروژه بعدی" title="پروژه بعدی">
+                    <span aria-hidden="true">←</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- View Full Portfolio & Categorized Gallery CTA -->
+              <div class="works-archive-cta-container">
+                <a href="works.html" class="btn-works-archive">
+                  <span class="btn-works-archive-icon">✦</span>
+                  <div class="btn-works-archive-content">
+                    <span class="btn-works-archive-title" data-i18n="view_all_works">مشاهده آرشیو کامل آثار ↗</span>
+                  </div>
+                  <span class="btn-works-archive-arrow">←</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- COLUMN 3: Category Filter Menu (Right in LTR, Left in RTL) -->
+            <div class="works-side-col works-categories-col">
+              <div class="works-categories-sticky">
+                <div class="categories-header-wrap">
+                  <span class="categories-eyebrow" data-i18n="categories_eyebrow">فیلتر موضوعی</span>
+                  <h3 class="categories-title" data-i18n="categories_title">دسته‌بندی آثار</h3>
+                </div>
+                <div class="work-filter-tabs vertical">
+                  <button class="filter-btn active" data-filter="all">
+                    <span class="filter-bullet"></span>
+                    <span class="filter-btn-text" data-i18n="filter_all">همه آثار</span>
+                    <span class="filter-count">۶</span>
+                  </button>
+                  <button class="filter-btn" data-filter="identity">
+                    <span class="filter-bullet"></span>
+                    <span class="filter-btn-text" data-i18n="filter_identity">هویت بصری</span>
+                    <span class="filter-count">۳</span>
+                  </button>
+                  <button class="filter-btn" data-filter="art">
+                    <span class="filter-bullet"></span>
+                    <span class="filter-btn-text" data-i18n="filter_art_direction">کارگردانی هنری</span>
+                    <span class="filter-count">۴</span>
+                  </button>
+                  <button class="filter-btn" data-filter="editorial">
+                    <span class="filter-bullet"></span>
+                    <span class="filter-btn-text" data-i18n="filter_editorial">طراحی نشر</span>
+                    <span class="filter-count">۱</span>
+                  </button>
+                  <button class="filter-btn" data-filter="motion">
+                    <span class="filter-bullet"></span>
+                    <span class="filter-btn-text" data-i18n="filter_3d">سه‌بعدی و موشن</span>
+                    <span class="filter-count">۲</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 04 Bottom Dock -->
+      <div class="hero-bottom-dock works-bottom-dock" id="works-dock">
+        <div class="dock-progress-track">
+          <div class="dock-progress-fill" id="works-dock-progress-fill"></div>
+        </div>
+        <div class="dock-content">
+          <div class="dock-stages-wrapper">
+            <span class="stage-nav-btn active" data-i18n="works_dock_stage">۰۴ / میدان نبرد و آثار</span>
+          </div>
+          <div class="dock-center-prompt">
+            <span id="works-dock-prompt" data-i18n="works_dock_prompt">برای تماشای میدان نبرد اسکرول کنید ↓</span>
+          </div>
+          <div class="dock-right-action">
+            <a href="#contact" class="dock-link" data-i18n="works_dock_action">ارتباط با من ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- MAIN PORTFOLIO SECTIONS (Contact & Footer)     -->
+  <!-- ============================================== -->
+  <main class="main-content" id="main-content">
+    
+    <!-- CONTACT SECTION -->
+    <section class="section section-contact" id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <div class="contact-header">
+            <span class="section-eyebrow" data-i18n="contact_eyebrow">ارتباط با من</span>
+            <h2 class="contact-heading">
+              <span data-i18n="contact_heading_1">بیایید اثری متمایز و</span><br>
+              <span class="headline-accent" data-i18n="contact_heading_2">فراموش‌نشدنی بسازیم.</span>
+            </h2>
+            <p class="contact-sub" data-i18n="contact_lead">چه در حال پایه‌گذاری یک نهاد فرهنگی نوین باشید، چه راه‌اندازی برندی جسور یا نیازمند کارگردانی هنری برای پروژه‌ای شاخص — استودیوی من مشتاق همکاری است.</p>
+          </div>
+
+          <div class="contact-layout">
+            
+            <form class="contact-form" id="contact-form" onsubmit="event.preventDefault(); handleFormSubmit();">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name" data-i18n="form_name_label">نام شما</label>
+                  <input type="text" id="name" placeholder="مثلاً: امیرعلی رضایی" data-i18n-placeholder="form_name_placeholder" required>
+                </div>
+                <div class="form-group">
+                  <label for="email" data-i18n="form_email_label">ایمیل شما</label>
+                  <input type="email" id="email" placeholder="name@domain.com" data-i18n-placeholder="form_email_placeholder" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="service" data-i18n="form_scope_label">حوزه همکاری</label>
+                <select id="service">
+                  <option value="identity" data-i18n="form_scope_opt1">هویت بصری و استراتژی برند</option>
+                  <option value="art" data-i18n="form_scope_opt2">کارگردانی هنری و مشاوره خلاقانه</option>
+                  <option value="motion" data-i18n="form_scope_opt3">مدل‌سازی سه‌بعدی و انیمیشن موشن</option>
+                  <option value="editorial" data-i18n="form_scope_opt4">طراحی کتاب، نشریه و بسته‌بندی</option>
+                  <option value="other" data-i18n="form_scope_opt5">هدایت خلاقیت کامل پروژه</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message" data-i18n="form_msg_label">درباره پروژه خود توضیح دهید</label>
+                <textarea id="message" rows="4" placeholder="مختصری درباره چشم‌انداز، اهداف و زمان‌بندی مد نظرتان بنویسید..." data-i18n-placeholder="form_msg_placeholder" required></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit" id="submit-btn">
+                <span data-i18n="form_submit">ارسال پیام ↗</span>
+              </button>
+              <div class="form-status" id="form-status"></div>
+            </form>
+
+            <div class="contact-details">
+              <div class="contact-item">
+                <span class="detail-label">Direct Email / ایمیل مستقیم</span>
+                <a href="mailto:contact@amiralieasy.design" class="detail-link">contact@amiralieasy.design</a>
+              </div>
+              <div class="contact-item">
+                <span class="detail-label">Socials & Networks / شبکه‌های اجتماعی</span>
+                <div class="social-links">
+                  <a href="https://behance.net" target="_blank" rel="noopener">Behance ↗</a>
+                  <a href="https://dribbble.com" target="_blank" rel="noopener">Dribbble ↗</a>
+                  <a href="https://instagram.com" target="_blank" rel="noopener">Instagram ↗</a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn ↗</a>
+                </div>
+              </div>
+              <div class="contact-status-card">
+                <span class="status-indicator"></span>
+                <span data-i18n="contact_badge">در حال حاضر آماده پذیرش پروژه‌های جدید</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <span class="footer-logo">AMIRALI EASY</span>
+        <span class="footer-copy" data-i18n="footer_rights">تمامی حقوق برای امیرعلی ایزی محفوظ است.</span>
+      </div>
+      <div class="footer-right">
+        <a href="#scrolly-hero" class="back-to-top-btn" id="back-to-top">
+          <span>Back to Top ↑</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Project Case Study Modal -->
+  <div class="project-modal" id="project-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-window">
+      <button class="modal-close-btn" id="modal-close" aria-label="Close modal">✕</button>
+      <div class="modal-body" id="modal-body">
+        <!-- Injected dynamically via main.js -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- JavaScript -->
+  <script src="translations.js"></script>
+  <script src="projects_data.js"></script>
+  <script src="skills_data.js"></script>
+  <script src="image_stack_carousel.js"></script>
+  <script src="site_loader.js"></script>
+  <script src="audio_player.js"></script>
+  <script src="bonfire.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

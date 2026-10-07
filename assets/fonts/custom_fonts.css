@@ -1,0 +1,168 @@
+/* ==========================================================================
+   Abar (ابر) Custom Persian Font Family - Typography System
+   High-Contrast (AbarHigh) for Headlines & Titles
+   Low-Contrast (AbarLow) for Small / Body Text & UI
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. AbarHigh (ابر پر کنتراست) - For Headlines & Titles
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'AbarHigh';
+  src: url('/assets/fonts/AbarHigh-Regular.otf') format('opentype'),
+       url('AbarHigh-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarHigh';
+  src: url('/assets/fonts/AbarHigh-SemiBold.otf') format('opentype'),
+       url('AbarHigh-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarHigh';
+  src: url('/assets/fonts/AbarHigh-Bold.otf') format('opentype'),
+       url('AbarHigh-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarHigh';
+  src: url('/assets/fonts/AbarHigh-ExtraBold.otf') format('opentype'),
+       url('AbarHigh-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarHigh';
+  src: url('/assets/fonts/AbarHigh-Black.otf') format('opentype'),
+       url('AbarHigh-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   2. AbarLow (ابر کم کنتراست) - For Small / Body Text & UI
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'AbarLow';
+  src: url('/assets/fonts/AbarLow-Regular.otf') format('opentype'),
+       url('AbarLow-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarLow';
+  src: url('/assets/fonts/AbarLow-SemiBold.otf') format('opentype'),
+       url('AbarLow-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarLow';
+  src: url('/assets/fonts/AbarLow-Bold.otf') format('opentype'),
+       url('AbarLow-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarLow';
+  src: url('/assets/fonts/AbarLow-ExtraBold.otf') format('opentype'),
+       url('AbarLow-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarLow';
+  src: url('/assets/fonts/AbarLow-Black.otf') format('opentype'),
+       url('AbarLow-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   3. AbarMid (ابر میان کنتراست)
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'AbarMid';
+  src: url('/assets/fonts/AbarMid-Regular.otf') format('opentype'),
+       url('AbarMid-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarMid';
+  src: url('/assets/fonts/AbarMid-SemiBold.otf') format('opentype'),
+       url('AbarMid-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarMid';
+  src: url('/assets/fonts/AbarMid-Bold.otf') format('opentype'),
+       url('AbarMid-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarMid';
+  src: url('/assets/fonts/AbarMid-ExtraBold.otf') format('opentype'),
+       url('AbarMid-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AbarMid';
+  src: url('/assets/fonts/AbarMid-Black.otf') format('opentype'),
+       url('AbarMid-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Backward compatibility alias for 'abar' */
+@font-face {
+  font-family: 'abar';
+  src: url('/assets/fonts/AbarHigh-Bold.otf') format('opentype'),
+       url('AbarHigh-Bold.otf') format('opentype');
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'abar';
+  src: url('/assets/fonts/AbarLow-Regular.otf') format('opentype'),
+       url('AbarLow-Regular.otf') format('opentype');
+  font-weight: 100 600;
+  font-style: normal;
+  font-display: swap;
+}

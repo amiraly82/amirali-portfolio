@@ -1,0 +1,26 @@
+[
+  {
+    "name": "AbarHigh",
+    "filename": "AbarHigh-Bold.otf",
+    "path": "assets/fonts/AbarHigh-Bold.otf",
+    "ext": ".otf"
+  },
+  {
+    "name": "AbarLow",
+    "filename": "AbarLow-Regular.otf",
+    "path": "assets/fonts/AbarLow-Regular.otf",
+    "ext": ".otf"
+  },
+  {
+    "name": "AbarMid",
+    "filename": "AbarMid-Regular.otf",
+    "path": "assets/fonts/AbarMid-Regular.otf",
+    "ext": ".otf"
+  },
+  {
+    "name": "abar",
+    "filename": "AbarHigh-Bold.otf",
+    "path": "assets/fonts/AbarHigh-Bold.otf",
+    "ext": ".otf"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "fontPersian": "'AbarLow', sans-serif",
+  "fontEnglish": "Playfair Display",
+  "fontPersianHeadings": "'AbarHigh', sans-serif",
+  "sectionHeadingFonts": {
+    "heroStage1": "'AbarHigh', sans-serif",
+    "heroStage3": "'AbarHigh', sans-serif",
+    "shield": "'AbarHigh', sans-serif",
+    "skills": "'AbarHigh', sans-serif",
+    "works": "'AbarHigh', sans-serif",
+    "about": "'AbarHigh', sans-serif",
+    "generalHeadings": "'AbarHigh', sans-serif"
+  },
+  "headingScale": 1,
+  "bodyScale": 1,
+  "lineHeight": 1.6,
+  "accentGreen": "#183f27",
+  "accentGold": "#ffd700"
+}

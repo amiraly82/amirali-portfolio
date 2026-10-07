@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آرشیو کامل آثار و گالری پروژه‌ها — امیرعلی ایزی | Selected Works & Archive</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+
+  <!-- Google Fonts: Playfair Display, Plus Jakarta Sans, Vazirmatn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="assets/fonts/custom_fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="works-page-body">
+
+  <!-- Background Music Audio Stream (Motoi Sakuraba - Knight Artorias) -->
+  <audio id="bg-music" src="bg-music.mp3" loop playsinline preload="auto">
+    <source src="bg-music.mp3" type="audio/mpeg">
+    <source src="Motoi%20Sakuraba%20-%20Knight%20Artorias.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Site Header -->
+  <header class="site-header" id="site-header" style="background: rgba(237, 240, 245, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-medium);">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo" id="brand-logo">
+        <span class="logo-first">AMIRALI</span>
+        <span class="logo-last">EASY</span>
+      </a>
+
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link" data-i18n="back_to_home">← بازگشت به صفحه اصلی</a></li>
+          <li><a href="index.html#work" class="nav-link" data-i18n="nav_work">آثار برگزیده</a></li>
+          <li><a href="index.html#scrolly-skills" class="nav-link" data-i18n="nav_skills">مهارت‌ها</a></li>
+          <li><a href="index.html#contact" class="nav-link nav-contact" data-i18n="nav_contact">تماس ↗</a></li>
+          
+          <!-- Bilingual Language Switcher -->
+          <li class="lang-switcher-wrap">
+            <div class="lang-switcher" id="lang-switcher" role="group" aria-label="Language Switcher">
+              <button type="button" class="lang-btn active" data-lang="fa" id="btn-lang-fa">فا</button>
+              <span class="lang-divider">/</span>
+              <button type="button" class="lang-btn" data-lang="en" id="btn-lang-en">EN</button>
+            </div>
+          </li>
+
+          <!-- Background Music Control -->
+          <li class="audio-toggle-wrap">
+            <button type="button" class="audio-toggle-btn" id="audio-toggle-btn" aria-label="Toggle Background Music" title="موسیقی پس‌زمینه">
+              <span class="audio-wave-bars" aria-hidden="true">
+                <span class="bar bar-1"></span>
+                <span class="bar bar-2"></span>
+                <span class="bar bar-3"></span>
+                <span class="bar bar-4"></span>
+              </span>
+              <span class="audio-toggle-label" id="audio-toggle-label">موسیقی</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Archive Content -->
+  <main class="page-container">
+    
+    <!-- Hero Header -->
+    <section class="works-archive-hero">
+      <span class="archive-eyebrow" data-i18n="works_page_badge">✦ آرشیو نمونه‌کارها</span>
+      <h1 class="archive-headline" data-i18n="works_page_title">گالری کامل آثار و مطالعات موردی</h1>
+      <p class="archive-subtitle" data-i18n="works_page_subtitle">
+        مجموعه‌ای منتخب از سیستم‌های هویت بصری، مونوگراف‌های نشر، استیج‌های موشن سه‌بعدی و آرت دیجیتال.
+      </p>
+
+      <!-- Category Filter Tabs -->
+      <div class="archive-filters-bar" id="category-filters">
+        <button class="archive-filter-btn active" data-filter="all">
+          <span data-i18n="filter_all">همه آثار</span>
+          <span class="filter-badge-count" id="count-all">۶</span>
+        </button>
+        <button class="archive-filter-btn" data-filter="identity">
+          <span data-i18n="filter_identity">هویت بصری</span>
+          <span class="filter-badge-count" id="count-identity">۳</span>
+        </button>
+        <button class="archive-filter-btn" data-filter="editorial">
+          <span data-i18n="filter_editorial">طراحی نشر</span>
+          <span class="filter-badge-count" id="count-editorial">۲</span>
+        </button>
+        <button class="archive-filter-btn" data-filter="3d">
+          <span data-i18n="filter_3d">سه‌بعدی و موشن</span>
+          <span class="filter-badge-count" id="count-3d">۲</span>
+        </button>
+        <button class="archive-filter-btn" data-filter="packaging">
+          <span data-i18n="filter_packaging">بسته‌بندی</span>
+          <span class="filter-badge-count" id="count-packaging">۲</span>
+        </button>
+        <button class="archive-filter-btn" data-filter="art">
+          <span data-i18n="filter_art">آرت دیجیتال</span>
+          <span class="filter-badge-count" id="count-art">۲</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Works Grid -->
+    <section class="archive-grid" id="archive-grid">
+      <!-- Populated dynamically via JavaScript with complete metadata and imagery -->
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="project-cta-banner">
+      <h2 class="project-cta-title" data-i18n="similar_project_cta">مشتاق شروع پروژه‌ای متمایز و ماندگار با یکدیگرید؟</h2>
+      <p class="project-cta-subtitle" data-i18n="contact_lead">
+        چه در حال پایه‌گذاری یک نهاد فرهنگی نوین باشید، چه راه‌اندازی برندی جسور یا نیازمند کارگردانی هنری برای پروژه‌ای شاخص — استودیوی من مشتاق همکاری است.
+      </p>
+      <a href="index.html#contact" class="btn-project-cta">
+        <span data-i18n="similar_project_btn">شروع گفتگو و همکاری ↗</span>
+      </a>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <a href="index.html" class="brand-logo footer-logo">
+          <span class="logo-first">AMIRALI</span>
+          <span class="logo-last">EASY</span>
+        </a>
+        <p class="footer-tagline" data-i18n="footer_tagline">طراحی‌شده با وسواس، دقت و اشتیاق هنری.</p>
+      </div>
+      <div class="footer-center">
+        <span class="footer-copy" data-i18n="footer_rights">تمامی حقوق برای امیرعلی ایزی محفوظ است.</span>
+      </div>
+      <div class="footer-right">
+        <a href="index.html" class="back-to-top-btn">
+          <span data-i18n="back_to_home">← بازگشت به صفحه اصلی</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="translations.js"></script>
+  <script src="projects_data.js"></script>
+  <script src="site_loader.js"></script>
+  <script src="audio_player.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let currentLang = localStorage.getItem('amirali_lang') || 'fa';
+      let activeFilter = 'all';
+
+      const grid = document.getElementById('archive-grid');
+      const filterBtns = document.querySelectorAll('.archive-filter-btn');
+      const btnFa = document.getElementById('btn-lang-fa');
+      const btnEn = document.getElementById('btn-lang-en');
+
+      function getTranslations() {
+        return (typeof translations !== 'undefined' && translations[currentLang]) ? translations[currentLang] : {};
+      }
+
+      function updateCategoryCounts() {
+        if (typeof PROJECTS_DATA === 'undefined') return;
+        const counts = { all: PROJECTS_DATA.length, identity: 0, editorial: 0, '3d': 0, packaging: 0, art: 0 };
+        PROJECTS_DATA.forEach(p => {
+          (p.categoryTags || [p.category]).forEach(tag => {
+            if (counts[tag] !== undefined) counts[tag]++;
+          });
+        });
+        Object.keys(counts).forEach(key => {
+          const el = document.getElementById(`count-${key}`);
+          if (el) el.textContent = currentLang === 'fa' ? toPersianNum(counts[key]) : counts[key];
+        });
+      }
+
+      function toPersianNum(n) {
+        const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        return String(n).replace(/[0-9]/g, w => farsiDigits[+w]);
+      }
+
+      function renderProjects() {
+        if (!grid || typeof PROJECTS_DATA === 'undefined') return;
+        const t = getTranslations();
+
+        const filtered = PROJECTS_DATA.filter(p => {
+          if (activeFilter === 'all') return true;
+          return (p.categoryTags || [p.category]).includes(activeFilter);
+        });
+
+        grid.innerHTML = filtered.map(p => {
+          const info = p[currentLang] || p.fa;
+          const imgCount = p.images ? p.images.length : 1;
+          const imgCountText = currentLang === 'fa' 
+            ? `${toPersianNum(imgCount)} اثر بصری 🖼`
+            : `${imgCount} Artifacts 🖼`;
+
+          const year = currentLang === 'fa' ? p.year : (p.yearEn || p.year);
+          const toolsHtml = (p.tools || []).map(tool => `<span class="tool-pill">${tool}</span>`).join('');
+          const viewLabel = t.view_project_gallery || (currentLang === 'fa' ? 'مشاهده گالری اثر ↗' : 'Inspect Gallery ↗');
+
+          return `
+            <a href="project.html?id=${p.id}" class="archive-card" data-tags="${(p.categoryTags || [p.category]).join(' ')}">
+              <div class="archive-card-media">
+                <img src="${p.coverImage}" alt="${info.title}" class="archive-card-img" loading="lazy">
+                <div class="archive-card-count-badge">
+                  <span>${imgCountText}</span>
+                </div>
+              </div>
+              <div class="archive-card-body">
+                <div class="archive-card-meta">
+                  <span class="archive-card-cat">${info.categoryName}</span>
+                  <span class="archive-card-year">${year}</span>
+                </div>
+                <h3 class="archive-card-title">${info.title}</h3>
+                <p class="archive-card-summary">${info.summary}</p>
+                <div class="archive-card-footer">
+                  <div class="archive-card-tools">
+                    ${toolsHtml}
+                  </div>
+                  <span class="archive-card-link-text">${viewLabel}</span>
+                </div>
+              </div>
+            </a>
+          `;
+        }).join('');
+      }
+
+      function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('amirali_lang', lang);
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+        if (lang === 'fa') {
+          btnFa.classList.add('active');
+          btnEn.classList.remove('active');
+          document.title = 'آرشیو کامل آثار و گالری پروژه‌ها — امیرعلی ایزی';
+        } else {
+          btnEn.classList.add('active');
+          btnFa.classList.remove('active');
+          document.title = 'Selected Works & Case Studies — AMIRALI EASY';
+        }
+
+        const t = getTranslations();
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (t[key]) {
+            el.textContent = t[key];
+          }
+        });
+
+        updateCategoryCounts();
+        renderProjects();
+      }
+
+      // Filter click handling
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeFilter = btn.getAttribute('data-filter') || 'all';
+          renderProjects();
+        });
+      });
+
+      // Language Switcher events
+      if (btnFa) btnFa.addEventListener('click', () => setLanguage('fa'));
+      if (btnEn) btnEn.addEventListener('click', () => setLanguage('en'));
+
+      // Initial render
+      setLanguage(currentLang);
+    });
+  </script>
+</body>
+</html>
