@@ -1540,10 +1540,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return `
                   <div class="gallery-accordion-item ${i === 0 ? 'is-active' : ''}" data-modal-thumb="${i}" style="min-width: 50px; border-radius: 12px; height: 100%;">
                     <img src="${img.src}" alt="${ititle}" class="accordion-img">
-                    <div class="accordion-scrim"></div>
-                    <div class="accordion-expanded-content" style="padding: 16px;">
-                      <span style="font-size: 0.72rem; color: #fbbf24; font-weight: 700;">#0${i + 1}</span>
-                      <h5 style="color: #fff; font-size: 1rem; font-weight: 700; margin: 4px 0 0; text-shadow: 0 1px 4px rgba(0,0,0,0.8);">${ititle}</h5>
+                    <div class="accordion-overlay" style="padding: 12px 14px;">
+                      <h5 class="accordion-title" style="font-size: 0.95rem; margin: 0;">${ititle}</h5>
                     </div>
                   </div>
                 `;

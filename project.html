@@ -198,15 +198,11 @@
 
   </main>
 
-  <!-- Fullscreen Lightbox Modal (Gallery Modal) -->
+  <!-- Fullscreen Lightbox Modal -->
   <div class="lightbox-modal" id="lightbox-modal" aria-hidden="true">
-    <div class="lightbox-top-bar">
-      <div class="lightbox-counter-pill" id="lightbox-counter-pill">1 / 1</div>
-      <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">✕</button>
-    </div>
-
-    <button class="lightbox-nav-btn lightbox-nav-prev" id="lightbox-prev-btn" aria-label="Previous Image">‹</button>
-    <button class="lightbox-nav-btn lightbox-nav-next" id="lightbox-next-btn" aria-label="Next Image">›</button>
+    <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close">✕</button>
+    <button class="lightbox-nav-btn lightbox-nav-prev" id="lightbox-prev-btn" aria-label="Previous">‹</button>
+    <button class="lightbox-nav-btn lightbox-nav-next" id="lightbox-next-btn" aria-label="Next">›</button>
 
     <div class="lightbox-media-wrapper" id="lightbox-media-wrapper">
       <img src="" alt="" class="lightbox-img" id="lightbox-img">
@@ -215,7 +211,7 @@
     <div class="lightbox-caption-bar">
       <h4 class="lightbox-caption-title" id="lightbox-title"></h4>
       <p class="lightbox-caption-text" id="lightbox-caption"></p>
-      <div class="lightbox-thumbnails-row" id="lightbox-thumbnails-row"></div>
+      <span class="lightbox-counter-pill" id="lightbox-counter-pill"></span>
     </div>
   </div>
 
@@ -345,36 +341,13 @@
             const imgTitle = currentLang === 'fa' ? img.titleFa : img.titleEn;
             const imgCaption = currentLang === 'fa' ? img.captionFa : img.captionEn;
             const isActive = idx === 0 ? 'is-active' : '';
-            const paddedNum = String(idx + 1).padStart(2, '0');
-            const visualLabel = currentLang === 'fa' 
-              ? `بخش ${idx + 1} از ${totalImages}`
-              : `Visual ${idx + 1} of ${totalImages}`;
-            const zoomLabel = currentLang === 'fa' ? 'بزرگ‌نمایی و جزئیات 🔍' : 'Inspect Fullscreen 🔍';
 
             return `
               <div class="gallery-accordion-item ${isActive}" data-index="${idx}" tabindex="0" role="button" aria-expanded="${idx === 0 ? 'true' : 'false'}" aria-label="${imgTitle}">
                 <img src="${img.src}" alt="${imgTitle}" class="accordion-img" loading="lazy">
-                
-                <div class="accordion-scrim"></div>
-
-                <div class="accordion-spine-indicator">
-                  <span class="accordion-spine-badge">${paddedNum}</span>
-                  <span class="accordion-spine-label">${imgTitle}</span>
-                </div>
-
-                <div class="accordion-expanded-content">
-                  <div class="accordion-content-header">
-                    <span class="accordion-tag">
-                      <span class="accordion-tag-dot"></span>
-                      ${visualLabel}
-                    </span>
-                    <button class="accordion-zoom-pill" type="button" tabindex="-1">
-                      <span>${zoomLabel}</span>
-                    </button>
-                  </div>
-                  
-                  <h3 class="accordion-item-title">${imgTitle}</h3>
-                  <p class="accordion-item-caption">${imgCaption}</p>
+                <div class="accordion-overlay">
+                  <h3 class="accordion-title">${imgTitle}</h3>
+                  ${imgCaption ? `<p class="accordion-caption">${imgCaption}</p>` : ''}
                 </div>
               </div>
             `;
@@ -470,24 +443,6 @@
           counterPill.textContent = currentLang === 'fa' 
             ? `${index + 1} از ${total}` 
             : `${index + 1} / ${total}`;
-        }
-
-        // Render thumbnails row in modal
-        const thumbsRow = document.getElementById('lightbox-thumbnails-row');
-        if (thumbsRow) {
-          thumbsRow.innerHTML = currentProject.images.map((item, i) => `
-            <button class="lightbox-thumb-btn ${i === index ? 'is-active' : ''}" data-thumb-index="${i}" type="button" aria-label="Go to image ${i + 1}">
-              <img src="${item.src}" alt="${currentLang === 'fa' ? item.titleFa : item.titleEn}" class="lightbox-thumb-img">
-            </button>
-          `).join('');
-
-          thumbsRow.querySelectorAll('.lightbox-thumb-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-              e.stopPropagation();
-              const i = parseInt(btn.getAttribute('data-thumb-index'), 10);
-              openLightbox(i);
-            });
-          });
         }
 
         // Keep accordion active item in sync
