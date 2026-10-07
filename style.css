@@ -6182,13 +6182,20 @@ html[lang="fa"] .reveal-layer-overlay {
   letter-spacing: normal;
 }
 
+html[lang="en"] .reveal-text-word {
+  direction: ltr;
+  gap: clamp(8px, 1.6vw, 22px);
+  font-family: 'Playfair Display', var(--font-serif), Georgia, serif !important;
+}
+
 html[lang="en"] .reveal-letter,
 html[lang="en"] .reveal-layer-base,
 html[lang="en"] .reveal-layer-image,
 html[lang="en"] .reveal-layer-overlay {
-  font-family: var(--font-sans), 'Plus Jakarta Sans', system-ui, sans-serif !important;
+  font-family: 'Playfair Display', var(--font-serif), Georgia, serif !important;
   font-weight: 900 !important;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
 .reveal-letter:hover,
@@ -6308,6 +6315,12 @@ html[lang="en"] .reveal-layer-overlay {
 html[lang="fa"] .reveal-text-hint {
   font-family: var(--font-persian-body, 'AbarLow', sans-serif);
   letter-spacing: normal;
+}
+
+html[lang="en"] .reveal-text-hint {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', system-ui, sans-serif);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
 .reveal-text-container:hover .reveal-text-hint {
