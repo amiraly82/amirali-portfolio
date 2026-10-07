@@ -269,22 +269,7 @@
     `;
     document.body.appendChild(fab);
 
-    // 2. Footer Bonfire Button Integration
-    const footerRight = document.querySelector('.footer-right');
-    if (footerRight) {
-      const footerBonfire = document.createElement('button');
-      footerBonfire.className = 'footer-bonfire-btn';
-      footerBonfire.id = 'footer-bonfire-btn';
-      footerBonfire.type = 'button';
-      footerBonfire.innerHTML = `
-        <span class="footer-bonfire-icon">${BONFIRE_SVG}</span>
-        <span class="footer-bonfire-text" data-i18n="bonfire_btn">استراحت در بون‌فایر</span>
-      `;
-      footerRight.prepend(footerBonfire);
-      footerBonfire.addEventListener('click', openBonfire);
-    }
-
-    // 3. Fullscreen Soulslike Bonfire Overlay & Sanctuary
+    // 2. Fullscreen Soulslike Bonfire Overlay & Sanctuary
     const overlay = document.createElement('div');
     overlay.className = 'bonfire-overlay';
     overlay.id = 'bonfire-overlay';
@@ -388,13 +373,18 @@
     const lang = document.documentElement.lang || 'fa';
     if (typeof translations === 'undefined' || !translations[lang]) return;
     const t = translations[lang];
-    const elementsToTranslate = document.querySelectorAll('#bonfire-fab [data-i18n], #bonfire-overlay [data-i18n], #footer-bonfire-btn [data-i18n]');
+    const elementsToTranslate = document.querySelectorAll('#bonfire-fab [data-i18n], #bonfire-overlay [data-i18n]');
     elementsToTranslate.forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (t && t[key] !== undefined) {
         el.textContent = t[key];
       }
     });
+    const fabBtn = document.getElementById('bonfire-fab-btn');
+    if (fabBtn && t && t['bonfire_btn']) {
+      fabBtn.setAttribute('title', t['bonfire_btn']);
+      fabBtn.setAttribute('aria-label', t['bonfire_btn']);
+    }
   }
 
   // ---------------------------------------------------------------------------
