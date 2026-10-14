@@ -147,7 +147,7 @@
       if (texts.en && translations.en) Object.assign(translations.en, texts.en);
     }
 
-    const currentLang = document.documentElement.lang || 'fa';
+    const currentLang = document.documentElement.lang || 'en';
     const activeTexts = (texts[currentLang] || (typeof translations !== 'undefined' && translations[currentLang])) || {};
 
     document.querySelectorAll('[data-i18n]').forEach(el => {

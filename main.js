@@ -123,13 +123,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --------------------------------------------------------------------------
   // BILINGUAL ENGINE (English & Persian)
+  // The site is configured to ALWAYS boot in English initially
   // --------------------------------------------------------------------------
-  let currentLang = localStorage.getItem('amirali_lang') || 'fa';
+  const urlLangParam = new URLSearchParams(window.location.search).get('lang');
+  let currentLang = urlLangParam === 'fa' ? 'fa' : 'en';
   let currentActiveProjectId = null;
 
   function getTranslations() {
     if (typeof translations !== 'undefined' && translations) {
-      return translations[currentLang] || translations.fa || translations.en || {};
+      return translations[currentLang] || translations.en || translations.fa || {};
     }
     return {};
   }
@@ -137,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setLanguage(lang) {
     if (typeof translations === 'undefined' || !translations[lang]) return;
     currentLang = lang;
-    localStorage.setItem('amirali_lang', lang);
+    sessionStorage.setItem('amirali_lang', lang);
 
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
@@ -220,6 +222,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // If modal is open, re-render in new language
     if (currentActiveProjectId && modal && modal.classList.contains('is-open')) {
       openProjectModal(currentActiveProjectId);
+    }
+
+    // Update RevealText letters if splash is active
+    if (typeof window.renderRevealText === 'function') {
+      window.renderRevealText();
     }
   }
 

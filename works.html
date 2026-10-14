@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>آرشیو کامل آثار و گالری پروژه‌ها — امیرعلی ایزی | Selected Works & Archive</title>
+  <title>Selected Works & Archive — AMIRALI EASY</title>
   
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
@@ -43,9 +43,9 @@
           <!-- Bilingual Language Switcher -->
           <li class="lang-switcher-wrap">
             <div class="lang-switcher" id="lang-switcher" role="group" aria-label="Language Switcher">
-              <button type="button" class="lang-btn active" data-lang="fa" id="btn-lang-fa">فا</button>
+              <button type="button" class="lang-btn" data-lang="fa" id="btn-lang-fa">فا</button>
               <span class="lang-divider">/</span>
-              <button type="button" class="lang-btn" data-lang="en" id="btn-lang-en">EN</button>
+              <button type="button" class="lang-btn active" data-lang="en" id="btn-lang-en">EN</button>
             </div>
           </li>
 
@@ -152,7 +152,8 @@
   <script src="audio_player.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      let currentLang = localStorage.getItem('amirali_lang') || 'fa';
+      const urlLang = new URLSearchParams(window.location.search).get('lang');
+      let currentLang = urlLang === 'fa' ? 'fa' : (sessionStorage.getItem('amirali_lang') === 'fa' ? 'fa' : 'en');
       let activeFilter = 'all';
 
       const grid = document.getElementById('archive-grid');
@@ -232,7 +233,7 @@
 
       function setLanguage(lang) {
         currentLang = lang;
-        localStorage.setItem('amirali_lang', lang);
+        sessionStorage.setItem('amirali_lang', lang);
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
 

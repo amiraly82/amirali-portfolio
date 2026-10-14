@@ -175,10 +175,10 @@
     const wordContainer = document.getElementById('reveal-text-word');
     if (!wordContainer) return;
 
-    const lang = document.documentElement.lang || 'fa';
+    const lang = document.documentElement.lang || 'en';
     const dict = (typeof translations !== 'undefined' && translations[lang]) 
       ? translations[lang] 
-      : (typeof translations !== 'undefined' ? translations.fa : null);
+      : (typeof translations !== 'undefined' ? (translations.en || translations.fa) : null);
     const text = (dict && dict.splash_btn) ? dict.splash_btn : (lang === 'fa' ? 'ورود' : 'ENTER');
     const hintText = (dict && dict.splash_hint) ? dict.splash_hint : (lang === 'fa' ? 'برای ورود روی حروف کلیک کنید' : 'Click any letter to enter');
 
@@ -222,6 +222,8 @@
       });
     });
   }
+
+  window.renderRevealText = renderRevealText;
 
   function initSplashScreen() {
     getElements();

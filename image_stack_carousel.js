@@ -62,7 +62,7 @@ class ImageStackCarousel {
   }
 
   getLang() {
-    return localStorage.getItem('amirali_lang') || 'fa';
+    return document.documentElement.lang || 'en';
   }
 
   updateResponsiveLayout() {
