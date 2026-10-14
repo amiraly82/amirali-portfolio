@@ -639,8 +639,19 @@ document.addEventListener('DOMContentLoaded', () => {
       delta *= window.innerHeight;
     }
 
+    // Viewport Height Normalization:
+    // Tracks are defined in multiples of viewportHeight (600vh, 280vh, etc.).
+    // On high-res/tall monitors (e.g. 1440p, 4K), total pixel distance is 2x-3x higher than on a laptop.
+    // By scaling delta by (window.innerHeight / BASE_VIEWPORT_HEIGHT), one physical notch of the mouse wheel
+    // or one trackpad swipe advances the EXACT same percentage of the scrollytelling animation on ANY monitor!
+    const BASE_VIEWPORT_HEIGHT = 900;
+    const heightRatio = Math.max(0.65, Math.min(2.4, window.innerHeight / BASE_VIEWPORT_HEIGHT));
+
+    // Clamp extreme trackpad flick impulses to prevent accidental skips
+    const clampedDelta = Math.sign(delta) * Math.min(Math.abs(delta), 350);
+
     // Accumulate target scroll with momentum
-    smoothTargetY += delta;
+    smoothTargetY += clampedDelta * heightRatio;
     smoothTargetY = Math.max(0, Math.min(maxScroll, smoothTargetY));
   }, { passive: false });
 
@@ -667,12 +678,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
     let handled = false;
+    const BASE_VIEWPORT_HEIGHT = 900;
+    const heightRatio = Math.max(0.65, Math.min(2.4, window.innerHeight / BASE_VIEWPORT_HEIGHT));
 
     if (e.key === 'ArrowDown') {
-      smoothTargetY += 120;
+      smoothTargetY += 120 * heightRatio;
       handled = true;
     } else if (e.key === 'ArrowUp') {
-      smoothTargetY -= 120;
+      smoothTargetY -= 120 * heightRatio;
       handled = true;
     } else if (e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
       smoothTargetY += window.innerHeight * 0.85;
@@ -883,10 +896,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let linesSvgHtml = '';
 
-    const cardHeight = Math.min(38, Math.max(30, H * 0.065));
-    const cardWidth = Math.min(138, Math.max(112, W * 0.092));
-    const vNear = Math.min(48, Math.max(22, H * 0.052));
-    const vFar = vNear + cardHeight + Math.min(42, Math.max(22, H * 0.048));
+    // Responsive card dimensions scaled for resolution & retina sharpness
+    const cardHeight = Math.max(34, Math.min(56, Math.round(Math.min(H * 0.052, 42 * (H / 900)))));
+    const cardWidth = Math.max(120, Math.min(210, Math.round(Math.min(W * 0.095, 140 * (H / 900)))));
+    const vNear = Math.max(24, Math.min(65, Math.round(H * 0.048)));
+    const vFar = vNear + cardHeight + Math.max(20, Math.min(55, Math.round(H * 0.042)));
 
     // Dynamic safe bounds avoiding intro header and bottom dock
     let safeTop = 60;

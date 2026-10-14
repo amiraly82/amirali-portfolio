@@ -105,6 +105,10 @@
   /* Standard Browser Default Cursors */
   --custom-cursor: default;
   --custom-cursor-pointer: pointer;
+
+  /* Responsive Safe Stage Framing across all monitor sizes (4K, Ultrawide, 1440p, 1080p, Laptops) */
+  --stage-edge-offset: max(clamp(20px, 4vw, 56px), calc(50vw - 720px));
+  --stage-max-width: 1440px;
 }
 
 /* --------------------------------------------------------------------------
@@ -321,9 +325,11 @@ ul {
    -------------------------------------------------------------------------- */
 .stage1-giant-title-wrap {
   position: absolute;
-  top: 9vh;
-  left: 0;
+  top: clamp(24px, 5.5vh, 75px);
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
+  max-width: min(92vw, var(--stage-max-width));
   display: flex;
   justify-content: center;
   text-align: center;
@@ -333,7 +339,7 @@ ul {
 
 .stage1-giant-title {
   font-family: var(--font-serif);
-  font-size: clamp(4.5rem, 13.5vw, 14.5rem);
+  font-size: clamp(3.8rem, 11vw, 12.5rem);
   font-weight: 800;
   line-height: 0.86;
   letter-spacing: -0.02em;
@@ -350,10 +356,10 @@ ul {
 
 .stage1-title-fa-art {
   display: none;
-  width: clamp(520px, 82vw, 1220px);
-  max-width: 92vw;
+  width: clamp(340px, 75vw, 1080px);
+  max-width: 90vw;
   height: auto;
-  max-height: 58vh;
+  max-height: min(44vh, 440px);
   object-fit: contain;
   margin: 0 auto;
   filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.09));
@@ -365,7 +371,7 @@ ul {
 }
 
 html[lang="fa"] .stage1-giant-title-wrap {
-  top: 9vh;
+  top: clamp(24px, 5.5vh, 75px);
 }
 
 /* Persian Mode: Show custom lettering artwork, hide plain text */
@@ -388,15 +394,15 @@ html[lang="en"] .stage1-giant-title .title-en-only {
 
 .stage1-bottom-left {
   position: absolute;
-  bottom: 12vh;
-  left: 4vw;
+  bottom: clamp(62px, 8.5vh, 95px);
+  left: var(--stage-edge-offset);
   z-index: 6;
   pointer-events: auto;
 }
 
 .tagline-bold {
   font-family: var(--font-serif);
-  font-size: clamp(1.4rem, 2.2vw, 2.3rem);
+  font-size: clamp(1.2rem, 1.8vw, 2.1rem);
   font-weight: 500;
   line-height: 1.22;
   color: var(--color-text-main);
@@ -405,15 +411,15 @@ html[lang="en"] .stage1-giant-title .title-en-only {
 
 .stage1-bottom-right {
   position: absolute;
-  bottom: 13vh;
-  right: 4vw;
+  bottom: clamp(62px, 8.5vh, 95px);
+  right: var(--stage-edge-offset);
   z-index: 6;
   pointer-events: auto;
 }
 
 .discipline-tag {
   font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  font-size: clamp(0.85rem, 1.1vw, 1.1rem);
   font-weight: 400;
   color: var(--color-text-main);
   letter-spacing: 0.01em;
@@ -424,16 +430,17 @@ html[lang="en"] .stage1-giant-title .title-en-only {
    -------------------------------------------------------------------------- */
 .stage2-left {
   position: absolute;
-  top: 46%;
+  top: 48%;
   transform: translateY(-50%);
-  left: 4vw;
+  left: var(--stage-edge-offset);
   z-index: 6;
   pointer-events: auto;
+  max-width: min(460px, 34vw);
 }
 
 .stage2-headline {
   font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 5.2vw, 5.6rem);
+  font-size: clamp(2.2rem, 4.2vw, 4.6rem);
   font-weight: 600;
   line-height: 1.08;
   display: flex;
@@ -451,16 +458,17 @@ html[lang="en"] .stage1-giant-title .title-en-only {
 
 .stage2-right {
   position: absolute;
-  top: 46%;
+  top: 48%;
   transform: translateY(-50%);
-  right: 4vw;
+  right: var(--stage-edge-offset);
   z-index: 6;
   pointer-events: auto;
+  max-width: min(340px, 26vw);
 }
 
 .stage2-caption {
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.4vw, 1.35rem);
+  font-size: clamp(0.95rem, 1.3vw, 1.25rem);
   font-weight: 400;
   color: var(--color-text-main);
 }
@@ -470,16 +478,17 @@ html[lang="en"] .stage1-giant-title .title-en-only {
    -------------------------------------------------------------------------- */
 .stage3-left {
   position: absolute;
-  top: 32%;
+  top: 48%;
   transform: translateY(-50%);
-  left: 4vw;
+  left: var(--stage-edge-offset);
   z-index: 6;
   pointer-events: auto;
+  max-width: min(420px, 32vw);
 }
 
 .stage3-name {
   font-family: var(--font-serif);
-  font-size: clamp(3.4rem, 6.8vw, 7.8rem);
+  font-size: clamp(2.8rem, 5.2vw, 6.2rem);
   font-weight: 800;
   line-height: 0.88;
   letter-spacing: -0.02em;
@@ -490,7 +499,7 @@ html[lang="en"] .stage1-giant-title .title-en-only {
 
 .stage3-role {
   font-family: var(--font-sans);
-  font-size: clamp(1.1rem, 1.6vw, 1.75rem);
+  font-size: clamp(1rem, 1.4vw, 1.45rem);
   font-weight: 400;
   color: var(--color-text-main);
   margin-top: 14px;
@@ -498,36 +507,36 @@ html[lang="en"] .stage1-giant-title .title-en-only {
 
 .stage3-right {
   position: absolute;
-  top: 38%;
+  top: 48%;
   transform: translateY(-50%);
-  right: 4vw;
+  right: var(--stage-edge-offset);
   z-index: 6;
   pointer-events: auto;
-  max-width: 380px;
+  max-width: min(340px, 26vw);
 }
 
 .stage3-quote {
   font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 4vw, 4.4rem);
+  font-size: clamp(1.8rem, 3.2vw, 3.6rem);
   font-weight: 600;
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--color-text-main);
   display: flex;
   flex-direction: column;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 .stage3-services {
-  margin-bottom: 30px;
+  margin-bottom: 22px;
 }
 
 .stage3-services li {
   font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
   font-weight: 400;
   color: var(--color-text-main);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .btn-explore-work {
@@ -539,7 +548,7 @@ html[lang="en"] .stage1-giant-title .title-en-only {
   font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 500;
-  padding: 14px 30px;
+  padding: 12px 28px;
   border-radius: 9999px;
   box-shadow: 0 6px 20px rgba(24, 63, 39, 0.28);
   transition: all var(--transition-fast);
@@ -593,7 +602,7 @@ html[lang="en"] .stage1-giant-title .title-en-only {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 4vw 20px;
+  padding: 16px var(--stage-edge-offset) 20px;
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -691,24 +700,23 @@ html[lang="en"] .stage1-giant-title .title-en-only {
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: flex-end !important;
-  padding: 0 6vw;
+  justify-content: flex-end;
+  padding: 0 var(--stage-edge-offset);
   z-index: 10;
   pointer-events: none;
-  direction: ltr !important; /* Strictly anchors the card to the right side over studio light */
+  direction: ltr; /* Strictly anchors the card to the right side over studio light */
 }
 
 .shield-content-card {
   pointer-events: auto;
-  width: 46vw;
-  max-width: 620px;
+  width: min(50vw, 560px);
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  background: rgba(255, 255, 255, 0.82);
+  gap: clamp(12px, 1.8vh, 18px);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  padding: 40px;
+  padding: clamp(24px, 3.5vh, 40px);
   border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.9);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(24, 63, 39, 0.04);
@@ -916,7 +924,7 @@ html[lang="en"] .stage1-giant-title .title-en-only {
 /* Intro Title Overlay */
 .skills-intro-overlay {
   position: absolute;
-  top: 7vh;
+  top: clamp(24px, 5.5vh, 65px);
   left: 0;
   width: 100%;
   display: flex;
@@ -925,7 +933,7 @@ html[lang="en"] .stage1-giant-title .title-en-only {
   text-align: center;
   pointer-events: none;
   z-index: 10;
-  padding: 0 4vw;
+  padding: 0 var(--stage-edge-offset);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
@@ -1454,8 +1462,8 @@ html[lang="en"] .works-intro-content {
 
 .works-showcase-inner {
   width: 100%;
-  max-width: 1360px;
-  padding: 1.5vh 3vw 16px;
+  max-width: min(94vw, 1360px);
+  padding: clamp(8px, 1.4vh, 18px) var(--stage-edge-offset) clamp(10px, 1.8vh, 22px);
   margin: 0 auto;
   pointer-events: auto;
   display: flex;
@@ -3498,12 +3506,12 @@ html[lang="fa"] .stage1-bottom-right .discipline-tag {
 /* Stage 2 (Hero Approach) */
 html[lang="fa"] .stage2-left {
   position: absolute;
-  top: 46%;
+  top: 48%;
   transform: translateY(-50%);
-  left: clamp(56px, 7.5vw, 128px);
+  left: var(--stage-edge-offset);
   direction: rtl;
   text-align: right;
-  max-width: min(440px, 34vw);
+  max-width: min(440px, 32vw);
   z-index: 6;
 }
 
@@ -3545,12 +3553,12 @@ html[lang="fa"] .stage2-headline .headline-accent {
 
 html[lang="fa"] .stage2-right {
   position: absolute;
-  top: 46%;
+  top: 48%;
   transform: translateY(-50%);
-  right: clamp(56px, 7.5vw, 128px);
+  right: var(--stage-edge-offset);
   direction: rtl;
   text-align: right;
-  max-width: 300px;
+  max-width: min(320px, 26vw);
   border-right: 2px solid var(--color-accent-green);
   padding-right: 18px;
   display: flex;
@@ -3594,12 +3602,12 @@ html[lang="fa"] .stage2-caption::after {
 /* Stage 3 (Hero Reveal - Name & Quote shown in user screenshot) */
 html[lang="fa"] .stage3-left {
   position: absolute;
-  top: 46%;
+  top: 48%;
   transform: translateY(-50%);
-  left: clamp(56px, 7.5vw, 128px);
+  left: var(--stage-edge-offset);
   direction: rtl;
   text-align: right;
-  max-width: min(440px, 34vw);
+  max-width: min(420px, 32vw);
   z-index: 6;
 }
 
@@ -3656,12 +3664,12 @@ html[lang="fa"] .stage3-role::before {
 
 html[lang="fa"] .stage3-right {
   position: absolute;
-  top: 46%;
+  top: 48%;
   transform: translateY(-50%);
-  right: clamp(56px, 7.5vw, 128px);
+  right: var(--stage-edge-offset);
   direction: rtl;
   text-align: right;
-  max-width: 320px;
+  max-width: min(340px, 26vw);
   z-index: 6;
   border-right: 2px solid var(--color-accent-green);
   padding-right: 18px;
@@ -6361,5 +6369,481 @@ html[lang="fa"] .reveal-text-container:hover .reveal-text-hint {
     font-size: 0.82rem;
   }
 }
+
+/* ==========================================================================
+   MULTI-MONITOR RESPONSIVE ARCHITECTURE & COMPOSITION CALIBRATION
+   Ensures flawless layout, zero element collisions, and proportional spacing
+   across 4K (3840x2160), QHD (2560x1440), Ultrawide (21:9), Full HD (1080p),
+   and 16:10 / 16:9 Laptops (1440x900, 1366x768).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Short Viewports & Laptops (Usable height <= 820px)
+   -------------------------------------------------------------------------- */
+@media (max-height: 820px) {
+  /* Stage 1: Intro */
+  .stage1-giant-title-wrap,
+  html[lang="fa"] .stage1-giant-title-wrap {
+    top: clamp(16px, 4vh, 50px);
+  }
+
+  .stage1-giant-title {
+    font-size: clamp(2.8rem, 9vw, 6.8rem);
+  }
+
+  .stage1-title-fa-art {
+    max-height: min(38vh, 340px);
+    width: clamp(300px, 70vw, 920px);
+  }
+
+  .stage1-bottom-left,
+  .stage1-bottom-right {
+    bottom: clamp(52px, 7.5vh, 75px);
+  }
+
+  .tagline-bold {
+    font-size: clamp(1.05rem, 1.5vw, 1.6rem);
+  }
+
+  .discipline-tag {
+    font-size: clamp(0.78rem, 0.95vw, 0.95rem);
+  }
+
+  /* Stage 2: Approach */
+  .stage2-headline,
+  html[lang="fa"] .stage2-headline {
+    font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+    line-height: 1.1;
+  }
+
+  .stage2-caption,
+  html[lang="fa"] .stage2-caption {
+    font-size: clamp(0.85rem, 1.15vw, 1.1rem);
+    line-height: 1.35;
+  }
+
+  /* Stage 3: Reveal */
+  .stage3-name,
+  html[lang="fa"] .stage3-name {
+    font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+    line-height: 1.05;
+  }
+
+  .stage3-role,
+  html[lang="fa"] .stage3-role {
+    font-size: clamp(0.82rem, 1.1vw, 1rem);
+    margin-top: 8px;
+  }
+
+  .stage3-quote,
+  html[lang="fa"] .stage3-quote {
+    font-size: clamp(1.3rem, 1.9vw, 1.85rem);
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+
+  .stage3-services,
+  html[lang="fa"] .stage3-services {
+    margin-bottom: 10px;
+    gap: 3px;
+  }
+
+  .stage3-services li {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  .btn-explore-work {
+    padding: 8px 20px;
+    font-size: 0.82rem;
+  }
+
+  /* Section 2: Shield Card */
+  .shield-content-card {
+    padding: 18px 22px;
+    gap: 10px;
+    border-radius: 18px;
+    max-width: 520px;
+  }
+
+  .shield-headline {
+    font-size: clamp(1.35rem, 2vw, 1.85rem);
+    line-height: 1.15;
+  }
+
+  .shield-bio .lead-text {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin-bottom: 4px;
+  }
+
+  .shield-bio p {
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .shield-stats-grid {
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  .stat-num {
+    font-size: 1.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .btn-shield-cta {
+    padding: 8px 18px;
+    font-size: 0.82rem;
+  }
+
+  /* Section 3: Skills */
+  .skills-intro-overlay {
+    top: clamp(16px, 3.5vh, 45px);
+  }
+
+  .skills-headline {
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+  }
+
+  .skills-subtitle {
+    font-size: 0.78rem;
+    padding: 3px 10px;
+  }
+
+  /* Section 4: Works Showcase & 3D Carousel */
+  .works-showcase-inner {
+    padding: 4px var(--stage-edge-offset) 10px;
+  }
+
+  .works-stack-stage {
+    height: clamp(230px, 30vh, 280px);
+    width: clamp(330px, 32vw, 400px);
+  }
+
+  .works-stack-wrapper {
+    margin: 0 auto 3px;
+  }
+
+  .works-stack-controls {
+    margin-top: 4px;
+  }
+
+  .stack-nav-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.82rem;
+  }
+
+  .stack-counter {
+    font-size: 0.8rem;
+  }
+
+  .stack-hint {
+    font-size: 0.72rem;
+  }
+
+  .works-archive-cta-container {
+    margin-top: 4px;
+  }
+
+  .btn-works-archive {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+
+  .works-main-title,
+  html[lang="fa"] .works-main-title {
+    font-size: clamp(1.4rem, 1.8vw, 1.95rem);
+    margin: 2px 0 6px;
+  }
+
+  .works-side-desc {
+    font-size: 0.76rem;
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .categories-header-wrap {
+    margin-bottom: 4px;
+  }
+
+  .categories-title,
+  html[lang="fa"] .categories-title {
+    font-size: 1rem;
+  }
+
+  .work-filter-tabs.vertical {
+    gap: 4px;
+  }
+
+  .work-filter-tabs.vertical .filter-btn {
+    padding: 5px 10px;
+    font-size: 0.76rem;
+    border-radius: 9px;
+  }
+
+  /* Bottom Docks */
+  .dock-content {
+    padding: 10px var(--stage-edge-offset) 14px;
+    font-size: 0.78rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Ultra-Short Displays (Usable height <= 680px, e.g. Split-screen / Small Laptops)
+   -------------------------------------------------------------------------- */
+@media (max-height: 680px) {
+  .stage1-giant-title-wrap,
+  html[lang="fa"] .stage1-giant-title-wrap {
+    top: 12px;
+  }
+
+  .stage1-title-fa-art {
+    max-height: min(32vh, 260px);
+  }
+
+  .stage1-bottom-left,
+  .stage1-bottom-right {
+    bottom: 48px;
+  }
+
+  .stage3-services,
+  html[lang="fa"] .stage3-services {
+    display: none; /* Hide bullets on ultra-short screens to prioritize quote & CTA */
+  }
+
+  .shield-content-card {
+    padding: 14px 18px;
+    gap: 7px;
+  }
+
+  .shield-bio p:not(.lead-text) {
+    display: none;
+  }
+
+  .works-stack-stage {
+    height: 220px;
+    width: 320px;
+  }
+
+  .works-side-desc {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Medium Screens & Narrow Desktops (Width 992px to 1240px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1240px) and (min-width: 992px) {
+  .works-triptych-layout {
+    gap: 16px;
+  }
+
+  .works-side-col {
+    flex: 0 1 clamp(170px, 18vw, 220px);
+  }
+
+  .works-stack-stage {
+    width: clamp(320px, 31vw, 390px);
+  }
+
+  .stage2-left, html[lang="fa"] .stage2-left {
+    max-width: 38vw;
+  }
+
+  .stage2-right, html[lang="fa"] .stage2-right {
+    max-width: 28vw;
+  }
+
+  .stage3-left, html[lang="fa"] .stage3-left {
+    max-width: 38vw;
+  }
+
+  .stage3-right, html[lang="fa"] .stage3-right {
+    max-width: 30vw;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Tablet & Small Screens (Width <= 991px) — Persian & English Unified
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  /* Hero Stages: Clean Vertical Flow to prevent left-right collisions */
+  .stage2-left,
+  html[lang="fa"] .stage2-left {
+    top: 24%;
+    transform: none;
+    left: 5vw;
+    right: 5vw;
+    max-width: 90vw;
+    text-align: center;
+    align-items: center;
+  }
+
+  .stage2-headline,
+  html[lang="fa"] .stage2-headline {
+    text-align: center;
+    align-items: center;
+    font-size: clamp(2rem, 5.5vw, 3.2rem);
+  }
+
+  .stage2-headline span,
+  html[lang="fa"] .stage2-headline span {
+    text-align: center;
+  }
+
+  .stage2-right,
+  html[lang="fa"] .stage2-right {
+    top: auto;
+    bottom: 95px;
+    transform: none;
+    left: 5vw;
+    right: 5vw;
+    max-width: 90vw;
+    text-align: center;
+    align-items: center;
+    border: none;
+    padding: 0;
+  }
+
+  .stage2-caption,
+  html[lang="fa"] .stage2-caption {
+    text-align: center;
+  }
+
+  .stage3-left,
+  html[lang="fa"] .stage3-left {
+    top: 18%;
+    transform: none;
+    left: 5vw;
+    right: 5vw;
+    max-width: 90vw;
+    text-align: center;
+    align-items: center;
+  }
+
+  .stage3-name,
+  html[lang="fa"] .stage3-name {
+    text-align: center;
+    align-items: center;
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+  }
+
+  .stage3-name span,
+  html[lang="fa"] .stage3-name span {
+    text-align: center;
+  }
+
+  .stage3-role,
+  html[lang="fa"] .stage3-role {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .stage3-right,
+  html[lang="fa"] .stage3-right {
+    top: auto;
+    bottom: 78px;
+    transform: none;
+    left: 5vw;
+    right: 5vw;
+    max-width: 90vw;
+    text-align: center;
+    align-items: center;
+    border: none;
+    padding: 0;
+  }
+
+  .stage3-quote,
+  html[lang="fa"] .stage3-quote {
+    text-align: center;
+    align-items: center;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin-bottom: 12px;
+  }
+
+  .stage3-quote .quote-line,
+  html[lang="fa"] .stage3-quote .quote-line {
+    text-align: center;
+  }
+
+  .stage3-services,
+  html[lang="fa"] .stage3-services {
+    display: none; /* Keep mobile stage uncluttered */
+  }
+
+  /* Shield Section */
+  .shield-intro-content {
+    justify-content: center !important;
+    padding: 0 4vw;
+  }
+
+  .shield-content-card {
+    width: 92vw;
+    max-width: 540px;
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  /* Works Triptych Layout becomes vertical tabs */
+  .works-triptych-layout {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .works-side-col {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 480px;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .works-title-col {
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .works-main-title,
+  html[lang="fa"] .works-main-title {
+    text-align: center;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .works-side-desc {
+    display: none;
+  }
+
+  .works-center-col {
+    max-width: 100%;
+  }
+
+  .works-stack-stage {
+    width: clamp(320px, 80vw, 440px);
+    height: clamp(240px, 32vh, 310px);
+  }
+
+  .works-categories-col {
+    display: none; /* Stack cards have category tag right on card */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Ultra-Wide Displays (21:9 aspect ratio or screen width >= 2560px)
+   -------------------------------------------------------------------------- */
+@media (min-aspect-ratio: 18/9) {
+  /* Prevent video from zooming in too heavily on character */
+  .hero-canvas,
+  #shield-canvas,
+  #skills-canvas,
+  #works-canvas {
+    object-position: center 38%;
+  }
+}
+
 
 
