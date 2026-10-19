@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Hero state
   const HERO_TOTAL_FRAMES = 240;
   const heroImages = new Array(HERO_TOTAL_FRAMES);
-  let heroCurrentFrameIndex = 0;
+  let heroCurrentFrameIndex = -1;
   let targetHeroProgress = 0;
   let currentHeroProgress = 0;
   let currentHeroStageIndex = 1;
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Shield state
   const SHIELD_TOTAL_FRAMES = 144;
   const shieldImages = new Array(SHIELD_TOTAL_FRAMES);
-  let shieldCurrentFrameIndex = 0;
+  let shieldCurrentFrameIndex = -1;
   let targetShieldProgress = 0;
   let currentShieldProgress = 0;
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Skills state
   const SKILLS_TOTAL_FRAMES = 111;
   const skillsImages = new Array(SKILLS_TOTAL_FRAMES);
-  let skillsCurrentFrameIndex = 0;
+  let skillsCurrentFrameIndex = -1;
   let targetSkillsProgress = 0;
   let currentSkillsProgress = 0;
   let targetSkillsTransitionProgress = 0;
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Works state
   const WORKS_TOTAL_FRAMES = 240;
   const worksImages = new Array(WORKS_TOTAL_FRAMES);
-  let worksCurrentFrameIndex = 0;
+  let worksCurrentFrameIndex = -1;
   let targetWorksProgress = 0;
   let currentWorksProgress = 0;
   let targetWorksTransitionProgress = 0;
@@ -116,10 +116,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let isWheelScrolling = false;
   let wheelScrollTimeout = null;
   let lastProgrammaticScrollTime = 0;
-  const SCROLL_EASE = 0.065; // Provides delayed coasting and velvety deceleration to 0
+  
+  // Dynamic SCROLL_EASE: On monitors >1920px, an ease factor of 0.088 prevents the feeling of
+  // sluggish dragging while preserving velvety momentum coasting to 0.
+  function getScrollEase() {
+    return window.innerWidth > 1920 ? 0.088 : 0.076;
+  }
 
   // Liquid momentum interpolation factor
-  const LERP_FACTOR = 0.15;
+  const LERP_FACTOR = 0.18;
 
   // --------------------------------------------------------------------------
   // BILINGUAL ENGINE (English & Persian)
@@ -230,45 +235,58 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnEn) btnEn.addEventListener('click', () => setLanguage('en'));
 
   // --------------------------------------------------------------------------
-  // HiDPI Retina Canvas Resize Logic
+  // HiDPI Retina Canvas Resize Logic (Optimized for 4K & Ultrawide)
   // --------------------------------------------------------------------------
   function resizeAllCanvases() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const w = window.innerWidth * dpr;
-    const h = window.innerHeight * dpr;
+    const rawDpr = window.devicePixelRatio || 1;
+    // On monitors > 1920px, capping DPR at 1.5 avoids 8K GPU texture allocation (saving hundreds of MBs in VRAM
+    // and eliminating fill-rate bottleneck on 4K/5K displays while retaining pristine sharpness)
+    const dpr = window.innerWidth > 1920 ? Math.min(rawDpr, 1.5) : Math.min(rawDpr, 2);
+    let w = Math.round(window.innerWidth * dpr);
+    let h = Math.round(window.innerHeight * dpr);
+
+    // Maximum internal canvas width: 2560px is more than enough for crisp 1080p source frames
+    // while preventing 500MB VRAM texture churn on 4K/5K displays
+    const MAX_CANVAS_WIDTH = 2560;
+    if (w > MAX_CANVAS_WIDTH) {
+      h = Math.round(h * (MAX_CANVAS_WIDTH / w));
+      w = MAX_CANVAS_WIDTH;
+    }
+
+    const smoothingQuality = window.innerWidth > 1920 ? 'medium' : 'high';
 
     if (heroCanvas && heroCtx) {
       heroCanvas.width = w;
       heroCanvas.height = h;
       heroCtx.imageSmoothingEnabled = true;
-      heroCtx.imageSmoothingQuality = 'high';
-      renderHeroFrame(heroCurrentFrameIndex);
+      heroCtx.imageSmoothingQuality = smoothingQuality;
+      renderHeroFrame(heroCurrentFrameIndex >= 0 ? heroCurrentFrameIndex : 0);
     }
 
     if (shieldCanvas && shieldCtx) {
       shieldCanvas.width = w;
       shieldCanvas.height = h;
       shieldCtx.imageSmoothingEnabled = true;
-      shieldCtx.imageSmoothingQuality = 'high';
-      renderShieldFrame(shieldCurrentFrameIndex);
+      shieldCtx.imageSmoothingQuality = smoothingQuality;
+      renderShieldFrame(shieldCurrentFrameIndex >= 0 ? shieldCurrentFrameIndex : 0);
     }
 
     if (skillsCanvas && skillsCtx) {
       skillsCanvas.width = w;
       skillsCanvas.height = h;
       skillsCtx.imageSmoothingEnabled = true;
-      skillsCtx.imageSmoothingQuality = 'high';
-      renderSkillsFrame(skillsCurrentFrameIndex);
-      positionSkillCallouts();
+      skillsCtx.imageSmoothingQuality = smoothingQuality;
+      renderSkillsFrame(skillsCurrentFrameIndex >= 0 ? skillsCurrentFrameIndex : 0);
     }
 
     if (worksCanvas && worksCtx) {
       worksCanvas.width = w;
       worksCanvas.height = h;
       worksCtx.imageSmoothingEnabled = true;
-      worksCtx.imageSmoothingQuality = 'high';
-      renderWorksFrame(worksCurrentFrameIndex);
+      worksCtx.imageSmoothingQuality = smoothingQuality;
+      renderWorksFrame(worksCurrentFrameIndex >= 0 ? worksCurrentFrameIndex : 0);
     }
+
     smoothCurrentY = window.scrollY;
     smoothTargetY = window.scrollY;
     calculateAllScrollProgress();
@@ -639,8 +657,21 @@ document.addEventListener('DOMContentLoaded', () => {
       delta *= window.innerHeight;
     }
 
+    // Dynamic scroll delta scaling for monitors wider than 1920px (e.g. 2K, 4K, 21:9 Ultrawide, 32:9)
+    // On high-res and wide displays where total vh track height expands (up to 55,000px),
+    // scaling delta prevents scroll speed from dropping and keeps pacing effortless and natural.
+    let scrollDeltaMultiplier = 1;
+    if (window.innerWidth > 1920) {
+      const wRatio = window.innerWidth / 1920;
+      const hRatio = window.innerHeight / 1080;
+      scrollDeltaMultiplier = Math.max(1.2, Math.min(2.4, Math.max(wRatio, hRatio)));
+    }
+
+    const maxDeltaClamp = window.innerWidth > 1920 ? 550 : 400;
+    const clampedDelta = Math.sign(delta) * Math.min(Math.abs(delta), maxDeltaClamp);
+
     // Accumulate target scroll with momentum
-    smoothTargetY += delta;
+    smoothTargetY += clampedDelta * scrollDeltaMultiplier;
     smoothTargetY = Math.max(0, Math.min(maxScroll, smoothTargetY));
   }, { passive: false });
 
@@ -668,11 +699,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
     let handled = false;
 
+    let arrowStep = 120;
+    if (window.innerWidth > 1920) {
+      const wRatio = window.innerWidth / 1920;
+      const hRatio = window.innerHeight / 1080;
+      const keyMultiplier = Math.max(1.2, Math.min(2.4, Math.max(wRatio, hRatio)));
+      arrowStep = 120 * keyMultiplier;
+    }
+
     if (e.key === 'ArrowDown') {
-      smoothTargetY += 120;
+      smoothTargetY += arrowStep;
       handled = true;
     } else if (e.key === 'ArrowUp') {
-      smoothTargetY -= 120;
+      smoothTargetY -= arrowStep;
       handled = true;
     } else if (e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
       smoothTargetY += window.innerHeight * 0.85;
@@ -889,21 +928,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const vFar = vNear + cardHeight + Math.min(42, Math.max(22, H * 0.048));
 
     // Dynamic safe bounds avoiding intro header and bottom dock
-    let safeTop = 60;
-    if (skillsIntroOverlay) {
-      const rect = skillsIntroOverlay.getBoundingClientRect();
-      if (rect.height > 0 && rect.bottom > 0) {
-        safeTop = Math.max(safeTop, rect.bottom + 6);
-      }
-    }
-
-    let safeBottom = H - 60;
-    if (skillsDock) {
-      const rect = skillsDock.getBoundingClientRect();
-      if (rect.top > 0 && rect.top < H) {
-        safeBottom = Math.min(safeBottom, rect.top - 6);
-      }
-    }
+    // Use arithmetic bounds to eliminate forced synchronous reflow / layout thrashing on animation frames
+    const safeTop = Math.max(60, Math.round(H * 0.14));
+    const safeBottom = H - Math.max(60, Math.round(H * 0.10));
 
     SKILL_STICKERS.forEach((st) => {
       const el = document.getElementById(`callout-${st.id}`);
@@ -1209,8 +1236,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function mainLoop() {
     // 0. Smooth Momentum Scroll Physics (Delayed coasting & feather-soft deceleration)
     const scrollDiff = smoothTargetY - smoothCurrentY;
+    const currentEase = getScrollEase();
     if (Math.abs(scrollDiff) > 0.05) {
-      smoothCurrentY += scrollDiff * SCROLL_EASE;
+      smoothCurrentY += scrollDiff * currentEase;
       lastProgrammaticScrollTime = performance.now();
       window.scrollTo(0, smoothCurrentY);
       calculateAllScrollProgress();
@@ -1221,73 +1249,71 @@ document.addEventListener('DOMContentLoaded', () => {
       calculateAllScrollProgress();
     }
 
-    // 1. Lerp Hero Progress
+    // 1. Lerp Progress States
     currentHeroProgress += (targetHeroProgress - currentHeroProgress) * LERP_FACTOR;
-
-    // Render corresponding Hero Frame
-    const targetHeroFrame = Math.min(
-      HERO_TOTAL_FRAMES - 1,
-      Math.max(0, Math.round(currentHeroProgress * (HERO_TOTAL_FRAMES - 1)))
-    );
-    if (targetHeroFrame !== heroCurrentFrameIndex) {
-      heroCurrentFrameIndex = targetHeroFrame;
-      renderHeroFrame(heroCurrentFrameIndex);
-    }
-
-    // 2. Lerp Transition Progress
     currentTransitionProgress += (targetTransitionProgress - currentTransitionProgress) * LERP_FACTOR;
-
-    // 3. Lerp Shield Progress
     currentShieldProgress += (targetShieldProgress - currentShieldProgress) * LERP_FACTOR;
-
-    // Render corresponding Shield Frame
-    const targetShieldFrame = Math.min(
-      SHIELD_TOTAL_FRAMES - 1,
-      Math.max(0, Math.round(currentShieldProgress * (SHIELD_TOTAL_FRAMES - 1)))
-    );
-    if (targetShieldFrame !== shieldCurrentFrameIndex) {
-      shieldCurrentFrameIndex = targetShieldFrame;
-      renderShieldFrame(shieldCurrentFrameIndex);
-    }
-
-    // 4. Lerp Skills Transition & Scrub Progress
     currentSkillsTransitionProgress += (targetSkillsTransitionProgress - currentSkillsTransitionProgress) * LERP_FACTOR;
     currentSkillsProgress += (targetSkillsProgress - currentSkillsProgress) * LERP_FACTOR;
-
-    // Render corresponding Skills Frame (Video zooms in from 0.0 to 0.48, then locks at frame 110)
-    const skillsVideoNorm = Math.min(1, currentSkillsProgress / 0.48);
-    const targetSkillsFrame = Math.min(
-      SKILLS_TOTAL_FRAMES - 1,
-      Math.max(0, Math.round(skillsVideoNorm * (SKILLS_TOTAL_FRAMES - 1)))
-    );
-    if (targetSkillsFrame !== skillsCurrentFrameIndex) {
-      skillsCurrentFrameIndex = targetSkillsFrame;
-      renderSkillsFrame(skillsCurrentFrameIndex);
-    }
-
-    // Motion Tracking: Live update pin coordinates to stick to the moving stickers on the blade
-    positionSkillCallouts(skillsCurrentFrameIndex);
-
-    // 5. Lerp Works Transition & Scrub Progress
     currentWorksTransitionProgress += (targetWorksTransitionProgress - currentWorksTransitionProgress) * LERP_FACTOR;
     currentWorksProgress += (targetWorksProgress - currentWorksProgress) * LERP_FACTOR;
 
-    // Render corresponding Works Frame (Camera pulls back from 0.0 to 0.38, then stays locked at frame 239)
-    const worksVideoNorm = Math.min(1, currentWorksProgress / 0.38);
-    const targetWorksFrame = Math.min(
-      WORKS_TOTAL_FRAMES - 1,
-      Math.max(0, Math.round(worksVideoNorm * (WORKS_TOTAL_FRAMES - 1)))
-    );
-    if (targetWorksFrame !== worksCurrentFrameIndex) {
-      worksCurrentFrameIndex = targetWorksFrame;
-      renderWorksFrame(worksCurrentFrameIndex);
+    // 2. Render Hero Frame & Update UI (Culled when Section 2 has completely covered Section 1)
+    if (currentTransitionProgress < 0.999 || targetTransitionProgress < 1) {
+      const targetHeroFrame = Math.min(
+        HERO_TOTAL_FRAMES - 1,
+        Math.max(0, Math.round(currentHeroProgress * (HERO_TOTAL_FRAMES - 1)))
+      );
+      if (targetHeroFrame !== heroCurrentFrameIndex) {
+        heroCurrentFrameIndex = targetHeroFrame;
+        renderHeroFrame(heroCurrentFrameIndex);
+      }
+      updateHeroUI(currentHeroProgress, currentTransitionProgress);
     }
 
-    // Update UI states
-    updateHeroUI(currentHeroProgress, currentTransitionProgress);
-    updateShieldUI(currentShieldProgress, currentTransitionProgress);
-    updateSkillsUI(currentSkillsProgress, currentSkillsTransitionProgress);
-    updateWorksUI(currentWorksProgress, currentWorksTransitionProgress);
+    // 3. Render Shield Frame & Update UI (Culled before Section 2 enters or after Section 3 completely covers it)
+    if ((currentTransitionProgress > 0.001 || targetTransitionProgress > 0) &&
+        (currentSkillsTransitionProgress < 0.999 || targetSkillsTransitionProgress < 1)) {
+      const targetShieldFrame = Math.min(
+        SHIELD_TOTAL_FRAMES - 1,
+        Math.max(0, Math.round(currentShieldProgress * (SHIELD_TOTAL_FRAMES - 1)))
+      );
+      if (targetShieldFrame !== shieldCurrentFrameIndex) {
+        shieldCurrentFrameIndex = targetShieldFrame;
+        renderShieldFrame(shieldCurrentFrameIndex);
+      }
+      updateShieldUI(currentShieldProgress, currentTransitionProgress);
+    }
+
+    // 4. Render Skills Frame & Update UI (Culled before Section 3 enters or after Section 4 completely covers it)
+    if ((currentSkillsTransitionProgress > 0.001 || targetSkillsTransitionProgress > 0) &&
+        (currentWorksTransitionProgress < 0.999 || targetWorksTransitionProgress < 1)) {
+      const skillsVideoNorm = Math.min(1, currentSkillsProgress / 0.48);
+      const targetSkillsFrame = Math.min(
+        SKILLS_TOTAL_FRAMES - 1,
+        Math.max(0, Math.round(skillsVideoNorm * (SKILLS_TOTAL_FRAMES - 1)))
+      );
+      if (targetSkillsFrame !== skillsCurrentFrameIndex) {
+        skillsCurrentFrameIndex = targetSkillsFrame;
+        renderSkillsFrame(skillsCurrentFrameIndex);
+        positionSkillCallouts(skillsCurrentFrameIndex);
+      }
+      updateSkillsUI(currentSkillsProgress, currentSkillsTransitionProgress);
+    }
+
+    // 5. Render Works Frame & Update UI (Culled before Section 4 enters)
+    if (currentWorksTransitionProgress > 0.001 || targetWorksTransitionProgress > 0) {
+      const worksVideoNorm = Math.min(1, currentWorksProgress / 0.38);
+      const targetWorksFrame = Math.min(
+        WORKS_TOTAL_FRAMES - 1,
+        Math.max(0, Math.round(worksVideoNorm * (WORKS_TOTAL_FRAMES - 1)))
+      );
+      if (targetWorksFrame !== worksCurrentFrameIndex) {
+        worksCurrentFrameIndex = targetWorksFrame;
+        renderWorksFrame(worksCurrentFrameIndex);
+      }
+      updateWorksUI(currentWorksProgress, currentWorksTransitionProgress);
+    }
 
     requestAnimationFrame(mainLoop);
   }
@@ -1310,13 +1336,15 @@ document.addEventListener('DOMContentLoaded', () => {
     SHIELD_TOTAL_FRAMES - 1,
     Math.max(0, Math.round(currentShieldProgress * (SHIELD_TOTAL_FRAMES - 1)))
   );
+  const initSkillsNorm = Math.min(1, currentSkillsProgress / 0.48);
   skillsCurrentFrameIndex = Math.min(
     SKILLS_TOTAL_FRAMES - 1,
-    Math.max(0, Math.round(currentSkillsProgress * (SKILLS_TOTAL_FRAMES - 1)))
+    Math.max(0, Math.round(initSkillsNorm * (SKILLS_TOTAL_FRAMES - 1)))
   );
+  const initWorksNorm = Math.min(1, currentWorksProgress / 0.38);
   worksCurrentFrameIndex = Math.min(
     WORKS_TOTAL_FRAMES - 1,
-    Math.max(0, Math.round(currentWorksProgress * (WORKS_TOTAL_FRAMES - 1)))
+    Math.max(0, Math.round(initWorksNorm * (WORKS_TOTAL_FRAMES - 1)))
   );
 
   setLanguage(currentLang);
